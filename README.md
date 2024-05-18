@@ -8,6 +8,12 @@ Stock Pulse is a easy to use Stock Market Tracking App. Users can track their fa
 
 # Data Sources
 * Single-user input: User's Favourite List of Stocks will be saved Locally on the Device.
-* 3rd-Party API: 
-	https://polygon.io/ for Historical Stock Market Data
-	https://www.alphavantage.co/ for Realtime Stock Market Data
+* 3rd-Party APIs: 
+	- https://polygon.io/ for Historical Stock Market Data
+	- https://www.alphavantage.co/ for Realtime Stock Market Data
+
+# Features
+* Users can tap on a Stock to view detailed information about it
+* Users can visualize the Realtime Price Details of the Stock in a Graph
+* Users can visualize the Historical Price Details of the Stock in a Graph
+* Users can Add a Widget on the Home Screen to Track their Top 3 Stocks
