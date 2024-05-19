@@ -21,3 +21,7 @@ Stock Pulse is a easy to use Stock Market Tracking App. Users can track their fa
 * Users can visualize the Realtime Price Details of the Stock in a Graph
 * Users can visualize the Historical Price Details of the Stock in a Graph
 * Users can Add a Widget on the Home Screen to Track their Top 3 Stocks
+* Users can Add and View the Favourite List of Stock(s)
+* Users can Update or Delete the Favourite List of Stock(s)
+* Users can Share the Favourite List of Stock(s)
+* Users can shake the device to get a Stock Recommendation
