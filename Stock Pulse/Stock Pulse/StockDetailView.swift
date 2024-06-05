@@ -52,7 +52,6 @@ struct StockDetailView: View {
                                         Text("Website")
                                     }
                                     .font(.subheadline)
-                                    //.padding(.trailing)
                                 }
                             }
                         }
@@ -111,11 +110,13 @@ struct StockDetailView: View {
                     
                     
                 } 
-                else {
-                    Spacer()
-                    Text("Oops! Data is not available at the momemt.")
+                else if(!viewModel.isLoading) {
+                    Image(systemName: "network.slash")
                         .padding()
-                    Spacer()
+                        .foregroundColor(.secondary)
+                    Text("Oops! Data is not available at the moment.")
+                        .padding()
+                        .foregroundColor(.secondary)
                 }
             }
         }.onAppear {
