@@ -56,13 +56,12 @@ class StockDetailViewModel: ObservableObject {
                         print("\nStock Detail Formatted Data: ", self.stockDetail ?? "NA")
                         print("\nLogo Url: ", APIEndpoints.appendPolygonApiKey(to: self.stockDetail?.branding?.logoURL ?? "NA-"))
                     }
-                    
-                    self.isLoading = false
                 } catch {
                     print("Error decoding stock detail: \(error)")
                     self.isLoading = false
                 }
             }
+            self.isLoading = false
         }.resume()
     }
 }
