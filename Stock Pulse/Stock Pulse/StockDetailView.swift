@@ -114,6 +114,7 @@ struct StockDetailView: View {
                     Image(systemName: "network.slash")
                         .padding()
                         .foregroundColor(.secondary)
+                        .frame(width: 100)
                     Text("Oops! Data is not available at the moment.")
                         .padding()
                         .foregroundColor(.secondary)
