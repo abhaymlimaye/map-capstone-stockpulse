@@ -14,6 +14,13 @@ struct StockDetailView: View {
     var body: some View {
         ScrollView {
             VStack() {
+                if viewModel.isLoading {
+                    Spacer()
+                    ProgressView()
+                        .padding()
+                    Spacer()
+                }
+                
                 if let stockDetail = viewModel.stockDetail {
                     HStack(alignment: .center) {
                         if let logoURL = stockDetail.branding?.logoURL, let url = URL(string: APIEndpoints.appendPolygonApiKey(to: logoURL)) {
@@ -103,13 +110,16 @@ struct StockDetailView: View {
                     .padding(.bottom)
                     
                     
-                } else {
-                    ProgressView()
-                        .onAppear {
-                            viewModel.fetchStockDetail(ticker: ticker)
-                        }
+                } 
+                else {
+                    Spacer()
+                    Text("Oops! Data is not available at the momemt.")
+                        .padding()
+                    Spacer()
                 }
             }
+        }.onAppear {
+            viewModel.fetchStockDetail(ticker: ticker)
         }
     }
 }

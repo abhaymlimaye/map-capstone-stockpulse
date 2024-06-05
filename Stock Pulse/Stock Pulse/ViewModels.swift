@@ -37,13 +37,18 @@ class StocksViewModel: ObservableObject {
 
 class StockDetailViewModel: ObservableObject {
     @Published var stockDetail: StockDetail? = nil
+    @Published var isLoading: Bool = false
     
     func fetchStockDetail(ticker: String) {
         guard let url = APIEndpoints.polygonUrl(for: ticker) else { return }
         
+        isLoading = true
+        
         print("\n\nStock Detail Url: ", url)
 
         URLSession.shared.dataTask(with: url) { data, response, error in
+            self.isLoading = false
+            
             if let data = data {
                 do {
                     print("\nStock Detail Raw Data: ", String(data: data, encoding: .utf8) ?? "NA")
