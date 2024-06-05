@@ -21,7 +21,7 @@ struct StockDetailView: View {
                     Spacer()
                 }
                 
-                if let stockDetail = viewModel.stockDetail {
+                if let stockDetail = viewModel.stockDetail, !viewModel.isLoading {
                     HStack(alignment: .center) {
                         if let logoURL = stockDetail.branding?.logoURL, let url = URL(string: APIEndpoints.appendPolygonApiKey(to: logoURL)) {
                             AsyncImage(url: url) { image in
