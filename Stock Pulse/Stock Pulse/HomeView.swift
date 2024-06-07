@@ -19,28 +19,28 @@ struct HomeView: View {
                     .padding()
 
                 Picker("Select Tab", selection: $selectedTab) {
-                    Text("Gainers").tag(0)
-                    Text("Losers").tag(1)
-                    Text("Actively Traded").tag(2)
+                    Text("Actively Traded").tag(0)
+                    Text("Gainers").tag(1)
+                    Text("Losers").tag(2)
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
 
                 List {
                     if selectedTab == 0 {
-                        ForEach(viewModel.gainers) { stock in
+                        ForEach(viewModel.activelyTraded) { stock in
                             NavigationLink(destination: StockDetailView(stock: stock)) {
                                 StockRow(stock: stock)
                             }
                         }
                     } else if selectedTab == 1 {
-                        ForEach(viewModel.losers) { stock in
+                        ForEach(viewModel.gainers) { stock in
                             NavigationLink(destination: StockDetailView(stock: stock)) {
                                 StockRow(stock: stock)
                             }
                         }
                     } else {
-                        ForEach(viewModel.activelyTraded) { stock in
+                        ForEach(viewModel.losers) { stock in
                             NavigationLink(destination: StockDetailView(stock: stock)) {
                                 StockRow(stock: stock)
                             }

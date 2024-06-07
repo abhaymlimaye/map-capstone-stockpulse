@@ -17,6 +17,8 @@ class StocksViewModel: ObservableObject {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
+                print("\n\nTop Movers Raw Data: ", String(data: data, encoding: .utf8) ?? "NA")
+                
                 do {
                     let topMoversResponse = try JSONDecoder().decode(TopMoversResponse.self, from: data)
                     DispatchQueue.main.async {
