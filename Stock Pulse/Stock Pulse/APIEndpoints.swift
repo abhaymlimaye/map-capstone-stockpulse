@@ -12,6 +12,7 @@ struct APIEndpoints {
     private static let apiKeysPolygon = [
         "R5la5_1NOCFkCrBSa6fcLshlx10asi7T",
         "Jep6dAWBIj9EmMCV40FKxZ_A4Kmiuph0",
+        "7Npa6OFOP_2r3FON61oNOwPDglMEpAGz"
     ]
     
     private static let topMoversBaseUrl = "https://www.alphavantage.co/query"
@@ -37,6 +38,11 @@ struct APIEndpoints {
             URLQueryItem(name: "apiKey", value: getRandomPolygonApiKey())
         ]
         return components?.url
+    }
+    
+    static func appendPolygonApiKey(to url: String) -> String {
+        let apiKey = getRandomPolygonApiKey()
+        return "\(url)?apiKey=\(apiKey)"
     }
 }
 
