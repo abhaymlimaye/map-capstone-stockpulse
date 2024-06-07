@@ -35,23 +35,27 @@ struct StockSymbol: Codable {
     }
 }
 
-struct StockDetail: Codable {
+struct StockDetail: Decodable {
     let symbol: String
     let logo: String
-    
-    var name: String {
-        return URL(string: logo)?
-            .lastPathComponent
-            .components(separatedBy: ".")
-            .first?
-            .capitalized ?? ""
-    }
-    
+
     enum CodingKeys: String, CodingKey {
-        case symbol = "meta.symbol"
-        case logo = "url"
+        case meta
+        case url
+    }
+
+    enum MetaKeys: String, CodingKey {
+        case symbol
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let metaContainer = try container.nestedContainer(keyedBy: MetaKeys.self, forKey: .meta)
+        symbol = try metaContainer.decode(String.self, forKey: .symbol)
+        logo = try container.decode(String.self, forKey: .url)
     }
 }
+
 
 struct Stock: Identifiable {
     let id = UUID()
