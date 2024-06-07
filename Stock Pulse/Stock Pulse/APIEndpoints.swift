@@ -8,7 +8,14 @@
 import Foundation
 
 struct APIEndpoints {
-    private static let apiKeyAlphaVantage = "ELJKR3GKV7GNRLYR"
+    private static let apiKeyAlphaVantage = [
+        "ELJKR3GKV7GNRLYR",
+        "0TMQATF9UEX595QM",
+        "G2XUVREOY1QCVG1E",
+        "8SJQ47RT5UECSX9E",
+        "TPKFXXIHP0RRW91I",
+        "BDHG82F3PSQF3AXQ"
+    ]
     private static let apiKeysPolygon = [
         "R5la5_1NOCFkCrBSa6fcLshlx10asi7T",
         "Jep6dAWBIj9EmMCV40FKxZ_A4Kmiuph0",
@@ -21,6 +28,9 @@ struct APIEndpoints {
     private static let polygonBaseUrl = "https://api.polygon.io/v3"
     private static let polygonTickerEndpoint = "/reference/tickers"
 
+    private static func getRandomAlphaVantageApiKey() -> String {
+        return apiKeysPolygon.randomElement() ?? apiKeyAlphaVantage[0]
+    }
     private static func getRandomPolygonApiKey() -> String {
         return apiKeysPolygon.randomElement() ?? apiKeysPolygon[0]
     }
@@ -29,7 +39,7 @@ struct APIEndpoints {
         var components = URLComponents(string: topMoversBaseUrl)
         components?.queryItems = [
             URLQueryItem(name: "function", value: "TOP_GAINERS_LOSERS"),
-            URLQueryItem(name: "apikey", value: apiKeyAlphaVantage)
+            URLQueryItem(name: "apikey", value: getRandomAlphaVantageApiKey())
         ]
         return components?.url
     }
