@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct TopMoversResponse: Codable {
-    let topGainers: [StockSymbol]
-    let topLosers: [StockSymbol]
-    let mostActivelyTraded: [StockSymbol]
+    var topGainers: [StockSymbol]
+    var topLosers: [StockSymbol]
+    var mostActivelyTraded: [StockSymbol]
     
     enum CodingKeys: String, CodingKey {
         case topGainers = "top_gainers"
