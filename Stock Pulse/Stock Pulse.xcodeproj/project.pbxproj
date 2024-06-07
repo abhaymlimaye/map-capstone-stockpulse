@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA5355532C12AB1200D5B042 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5355522C12AB1200D5B042 /* Home.swift */; };
+		DA5355552C12B58A00D5B042 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5355542C12B58A00D5B042 /* Models.swift */; };
 		DA602FF42BF8E62000C5FA83 /* Stock_PulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */; };
 		DA602FF82BF8E62300C5FA83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FF72BF8E62300C5FA83 /* Assets.xcassets */; };
 		DA602FFB2BF8E62300C5FA83 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FFA2BF8E62300C5FA83 /* Preview Assets.xcassets */; };
@@ -15,6 +16,7 @@
 
 /* Begin PBXFileReference section */
 		DA5355522C12AB1200D5B042 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		DA5355542C12B58A00D5B042 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		DA602FF02BF8E62000C5FA83 /* Stock Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Pulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_PulseApp.swift; sourceTree = "<group>"; };
 		DA602FF72BF8E62300C5FA83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 				DA5355522C12AB1200D5B042 /* Home.swift */,
 				DA602FF72BF8E62300C5FA83 /* Assets.xcassets */,
 				DA602FF92BF8E62300C5FA83 /* Preview Content */,
+				DA5355542C12B58A00D5B042 /* Models.swift */,
 			);
 			path = "Stock Pulse";
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA5355552C12B58A00D5B042 /* Models.swift in Sources */,
 				DA5355532C12AB1200D5B042 /* Home.swift in Sources */,
 				DA602FF42BF8E62000C5FA83 /* Stock_PulseApp.swift in Sources */,
 			);
