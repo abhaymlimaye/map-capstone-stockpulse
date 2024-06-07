@@ -12,7 +12,9 @@ struct APIEndpoints {
     private static let apiKeysPolygon = [
         "R5la5_1NOCFkCrBSa6fcLshlx10asi7T",
         "Jep6dAWBIj9EmMCV40FKxZ_A4Kmiuph0",
-        "7Npa6OFOP_2r3FON61oNOwPDglMEpAGz"
+        "7Npa6OFOP_2r3FON61oNOwPDglMEpAGz",
+        "DDEZ_x3FduU8Q57rDAdo4zPBoSsIri2P",
+        "xClmupp2psdxMR4GX3FmFxuWhrfIR4VO"
     ]
     
     private static let topMoversBaseUrl = "https://www.alphavantage.co/query"
