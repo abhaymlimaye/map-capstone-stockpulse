@@ -8,10 +8,49 @@
 import SwiftUI
 
 struct SearchView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    @StateObject private var viewModel = SymbolSearchViewModel()
+        @State private var showDetails = false
+        @State private var selectedStock: SymbolSearchResult?
+
+        var body: some View {
+            NavigationStack {
+                VStack {
+                    Text("What are you looking for?")
+                        .font(.largeTitle)
+                        .padding()
+
+                    HStack {
+                        TextField("type a symbol or a name...", text: $viewModel.searchText)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.horizontal)
+                            .submitLabel(.search)
+                            .onSubmit {
+                                viewModel.search()
+                            }
+
+                        Button(action: {
+                            viewModel.search()
+                        }) {
+                            Text("Search")
+                        }
+                        .padding(.trailing)
+                    }
+                    
+                    List(viewModel.results) { result in
+                        NavigationLink(destination: StockDetailView(ticker: result.symbol)) {
+                            VStack(alignment: .leading) {
+                                Text(result.symbol)
+                                    .font(.headline)
+                                Text(result.name)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-}
 
 #Preview {
     SearchView()
