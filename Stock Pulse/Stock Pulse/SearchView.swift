@@ -26,14 +26,6 @@ struct SearchView: View {
                                 showLoader = true
                                 viewModel.search()
                             }
-
-//                        Button(action: {
-//                            showLoader = true
-//                            viewModel.search()
-//                        }) {
-//                            Text("Search")
-//                        }
-                        
                     }
                     .padding(.vertical)
               
@@ -41,13 +33,7 @@ struct SearchView: View {
                         Section(showRecordCount ? "Found \(viewModel.results.count) matching" : "") {
                             ForEach(viewModel.results) { result in
                                 NavigationLink(destination: StockDetailView(ticker: result.symbol)) {
-                                    VStack(alignment: .leading) {
-                                        Text(result.symbol)
-                                            .font(.headline)
-                                        Text(result.name)
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
-                                    }
+                                    ResultRow(result: result)
                                 }
                                 .onAppear() {
                                     showLoader = false
@@ -56,11 +42,25 @@ struct SearchView: View {
                             }
                         }
                     }
-                    .navigationTitle("Let's find")
+                    .navigationTitle("Let's find a Stock")
+                    .navigationBarItems(leading: Text("What do you want to look for?"), trailing: Image(systemName: "waveform.badge.magnifyingglass"))
                 }
             }
         }
     }
+
+struct ResultRow: View {
+    let result: SymbolSearchResult
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(result.symbol)
+                .font(.headline)
+            Text(result.name)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+        }
+    }
+}
 
 #Preview {
     SearchView()
