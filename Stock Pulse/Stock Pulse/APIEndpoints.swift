@@ -24,7 +24,7 @@ struct APIEndpoints {
         "xClmupp2psdxMR4GX3FmFxuWhrfIR4VO"
     ]
     
-    private static let topMoversBaseUrl = "https://www.alphavantage.co/query"
+    private static let alphavantageBaseUrl = "https://www.alphavantage.co/query"
     private static let polygonBaseUrl = "https://api.polygon.io/v3"
     private static let polygonTickerEndpoint = "/reference/tickers"
 
@@ -36,7 +36,7 @@ struct APIEndpoints {
     }
 
     static func topMoversUrl() -> URL? {
-        var components = URLComponents(string: topMoversBaseUrl)
+        var components = URLComponents(string: alphavantageBaseUrl)
         components?.queryItems = [
             URLQueryItem(name: "function", value: "TOP_GAINERS_LOSERS"),
             URLQueryItem(name: "apikey", value: getRandomAlphaVantageApiKey())
@@ -55,6 +55,16 @@ struct APIEndpoints {
     static func appendPolygonApiKey(to url: String) -> String {
         let apiKey = getRandomPolygonApiKey()
         return "\(url)?apiKey=\(apiKey)"
+    }
+    
+    static func symbolSearchUrl(for keywords: String) -> URL? {
+        var components = URLComponents(string: alphavantageBaseUrl)
+        components?.queryItems = [
+            URLQueryItem(name: "function", value: "SYMBOL_SEARCH"),
+            URLQueryItem(name: "apikey", value: getRandomAlphaVantageApiKey()),
+            URLQueryItem(name: "keywords", value: keywords)
+        ]
+        return components?.url
     }
 }
 
