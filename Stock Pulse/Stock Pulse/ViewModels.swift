@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class StocksViewModel: ObservableObject {
     @Published var gainers: [Stock] = []
@@ -28,6 +29,32 @@ class StocksViewModel: ObservableObject {
                     }
                 } catch {
                     print("Error decoding top movers: \(error)")
+                }
+            }
+        }.resume()
+    }
+}
+
+class StockDetailViewModel: ObservableObject {
+    @Published var stockDetail: StockDetail? = nil
+    
+    func fetchStockDetail(ticker: String) {
+        guard let url = APIEndpoints.polygonUrl(for: ticker) else { return }
+        
+        print("\n\nStock Detail Url: ", url)
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                do {
+                    print("\nStock Detail Raw Data: ", String(data: data, encoding: .utf8) ?? "NA")
+                    let detailResponse = try JSONDecoder().decode(StockDetailResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        self.stockDetail = detailResponse.results
+                        print("\nStock Detail Formatted Data: ", self.stockDetail ?? "NA")
+                        print("\nLogo Url: ", APIEndpoints.appendPolygonApiKey(to: self.stockDetail?.branding?.logoURL ?? "NA-"))
+                    }
+                } catch {
+                    print("Error decoding stock detail: \(error)")
                 }
             }
         }.resume()
@@ -59,5 +86,28 @@ class SymbolSearchViewModel: ObservableObject {
         }
         
         task.resume()
+    }
+}
+
+class ResultRowViewModel: ObservableObject {
+    @Published var iconURL: String?
+    private var cancellable: AnyCancellable?
+    
+    func fetchIcon(for symbol: String) {
+        iconURL = nil //resetting previous Icon until new one is available
+        
+        guard let url = APIEndpoints.logoUrl(symbol: symbol) else {
+            return
+        }
+        
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: IconResponse.self, decoder: JSONDecoder())
+            .map { $0.url }
+            .replaceError(with: nil)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] url in
+                self?.iconURL = url
+            })
     }
 }
