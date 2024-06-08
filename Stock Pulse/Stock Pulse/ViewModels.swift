@@ -33,3 +33,31 @@ class StocksViewModel: ObservableObject {
         }.resume()
     }
 }
+
+class SymbolSearchViewModel: ObservableObject {
+    @Published var searchText: String = ""
+    @Published var results: [SymbolSearchResult] = []
+
+    private let apiKey = "demo"
+
+    func search() {
+        guard !searchText.isEmpty else { return }
+        
+        guard let url = APIEndpoints.symbolSearchUrl(for: searchText) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(SymbolSearchResponse.self, from: data)
+                DispatchQueue.main.async {
+                    self.results = response.bestMatches
+                }
+            } catch {
+                print("Error decoding response: \(error)")
+            }
+        }
+        
+        task.resume()
+    }
+}
