@@ -15,7 +15,7 @@ struct HomeView: View {
         NavigationStack {
             VStack {
                 Picker("Select Tab", selection: $selectedTab) {
-                    Text("Actively Traded").tag(0)
+                    Text("Most Traded").tag(0)
                     Text("Gainers").tag(1)
                     Text("Losers").tag(2)
                 }
@@ -60,24 +60,49 @@ struct HomeView: View {
 
 struct StockRow: View {
     let stock: Stock
+    let selectedTab = 0
 
     var body: some View {
+      
         HStack {
             VStack(alignment: .leading) {
                 Text(stock.ticker)
                     .font(.headline)
-                Text("Price: \(stock.price)")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                HStack {
+                    Text("Price:")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Text("$\(stock.price)")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("Volume:")
+                        .foregroundColor(.accentColor)
+                        .font(.subheadline)
+                    Text(stock.volume)
+                        .font(.headline)
+                        .foregroundColor(.accentColor)
+                }
             }
 
             Spacer()
 
-            Text(stock.changePercentage)
-                .font(.headline)
+            VStack(alignment: .trailing) {
+                Text(stock.changePercentage)
+                    .font(.headline)
+                    .foregroundColor(stock.changePercentage.contains("-") ? .red : .green)
+                Text("$\(stock.changeAmount)")
+                    .font(.subheadline)
+                    .foregroundColor(stock.changePercentage.contains("-") ? .red : .green)
+            }
+            
+            Image(systemName: stock.changePercentage.contains("-") ? "arrowtriangle.down.fill" : "arrowtriangle.up.fill")
                 .foregroundColor(stock.changePercentage.contains("-") ? .red : .green)
+            
         }
         .padding(.vertical, 5)
+   
     }
 }
 
