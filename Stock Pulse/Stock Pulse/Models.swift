@@ -141,4 +141,7 @@ struct SymbolSearchResult: Codable, Identifiable {
         case name = "2. name"
     }
 }
+struct IconResponse: Decodable {
+    let url: String
+}
 
