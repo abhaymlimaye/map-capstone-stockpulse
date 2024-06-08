@@ -24,32 +24,33 @@ struct HomeView: View {
 
                 List {
                     if selectedTab == 0 {
-                        Section("By Highest Volume") {
+                        Section("Top 20 By Highest Volume") {
                             ForEach(viewModel.activelyTraded) { stock in
                                 NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                    StockRow(stock: stock)
+                                    StockRow(stock: stock, selectedTab: selectedTab)
                                 }
                             }
                         }
                     } else if selectedTab == 1 {
-                        Section("By Highest Growth") {
+                        Section("Top 20 By Highest Growth") {
                             ForEach(viewModel.gainers) { stock in
                                 NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                    StockRow(stock: stock)
+                                    StockRow(stock: stock, selectedTab: selectedTab)
                                 }
                         }
                     }
                     } else {
-                        Section("By Highest Downfall") {
+                        Section("Top 20 By Highest Downfall") {
                             ForEach(viewModel.losers) { stock in
                                 NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                    StockRow(stock: stock)
+                                    StockRow(stock: stock, selectedTab: selectedTab)
                                 }
                             }
                         }
                     }
                 }
                 .navigationTitle("Top Movers")
+                .navigationBarItems(leading: Text("Discover from the Last Trading Day"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
                 .onAppear {
                     viewModel.fetchTopMovers()
                 }
@@ -60,7 +61,7 @@ struct HomeView: View {
 
 struct StockRow: View {
     let stock: Stock
-    let selectedTab = 0
+    let selectedTab: Int
 
     var body: some View {
       
@@ -68,20 +69,20 @@ struct StockRow: View {
             VStack(alignment: .leading) {
                 Text(stock.ticker)
                     .font(.headline)
-                HStack {
+                HStack(alignment: .bottom) {
                     Text("Price:")
-                        .font(.subheadline)
+                        .font(.caption)
                         .foregroundColor(.secondary)
                     Text("$\(stock.price)")
-                        .font(.headline)
+                        .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
-                HStack {
+                HStack(alignment: .bottom) {
                     Text("Volume:")
                         .foregroundColor(.accentColor)
-                        .font(.subheadline)
+                        .font(selectedTab == 0 ? .subheadline : .caption)
                     Text(stock.volume)
-                        .font(.headline)
+                        .font(selectedTab == 0 ? .headline : .subheadline)
                         .foregroundColor(.accentColor)
                 }
             }
@@ -90,10 +91,10 @@ struct StockRow: View {
 
             VStack(alignment: .trailing) {
                 Text(stock.changePercentage)
-                    .font(.headline)
+                    .font(selectedTab != 0 ? .headline : .subheadline)
                     .foregroundColor(stock.changePercentage.contains("-") ? .red : .green)
                 Text("$\(stock.changeAmount)")
-                    .font(.subheadline)
+                    .font(selectedTab != 0 ? .subheadline : .caption)
                     .foregroundColor(stock.changePercentage.contains("-") ? .red : .green)
             }
             
