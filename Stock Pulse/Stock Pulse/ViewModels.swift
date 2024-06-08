@@ -51,7 +51,7 @@ class SymbolSearchViewModel: ObservableObject {
             do {
                 let response = try JSONDecoder().decode(SymbolSearchResponse.self, from: data)
                 DispatchQueue.main.async {
-                    self.results = response.bestMatches
+                    self.results = response.bestMatches.filter { !$0.symbol.contains(".") }
                 }
             } catch {
                 print("Error decoding response: \(error)")
