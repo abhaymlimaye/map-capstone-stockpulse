@@ -38,11 +38,15 @@ struct Stock: Identifiable, Codable {
     let ticker: String
     let price: String
     let changePercentage: String
+    let changeAmount: String
+    let volume: String
     
     enum CodingKeys: String, CodingKey {
         case ticker = "ticker"
         case price = "price"
         case changePercentage = "change_percentage"
+        case volume
+        case changeAmount = "change_amount"
     }
 }
 
