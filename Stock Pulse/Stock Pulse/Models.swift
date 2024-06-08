@@ -123,3 +123,18 @@ struct StockDetailResponse: Codable {
     let results: StockDetail
 }
 
+struct SymbolSearchResponse: Codable {
+    let bestMatches: [SymbolSearchResult]
+}
+
+struct SymbolSearchResult: Codable, Identifiable {
+    let id = UUID()
+    let symbol: String
+    let name: String
+
+    enum CodingKeys: String, CodingKey {
+        case symbol = "1. symbol"
+        case name = "2. name"
+    }
+}
+
