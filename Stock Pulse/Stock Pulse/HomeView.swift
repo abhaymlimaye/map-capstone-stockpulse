@@ -29,19 +29,19 @@ struct HomeView: View {
                 List {
                     if selectedTab == 0 {
                         ForEach(viewModel.activelyTraded) { stock in
-                            NavigationLink(destination: StockDetailView(stock: stock)) {
+                            NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
                                 StockRow(stock: stock)
                             }
                         }
                     } else if selectedTab == 1 {
                         ForEach(viewModel.gainers) { stock in
-                            NavigationLink(destination: StockDetailView(stock: stock)) {
+                            NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
                                 StockRow(stock: stock)
                             }
                         }
                     } else {
                         ForEach(viewModel.losers) { stock in
-                            NavigationLink(destination: StockDetailView(stock: stock)) {
+                            NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
                                 StockRow(stock: stock)
                             }
                         }

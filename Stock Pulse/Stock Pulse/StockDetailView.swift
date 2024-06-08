@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct StockDetailView: View {
-    let stock: Stock
+    let ticker: String
     @State private var stockDetail: StockDetail? = nil
 
     var body: some View {
         VStack {
             if let stockDetail = stockDetail {
-                Text(stockDetail.name ?? stock.ticker)
+                Text(stockDetail.name ?? ticker)
                     .font(.largeTitle)
                     .padding()
 
@@ -37,8 +37,6 @@ struct StockDetailView: View {
                 }
 
                 // Display other details as needed
-                Text("Price: \(stock.price)")
-                Text("Change: \(stock.changePercentage)")
                 Text(stockDetail.description ?? "")
                     .padding()
             } else {
@@ -51,7 +49,7 @@ struct StockDetailView: View {
     }
 
     func fetchStockDetail() {
-        guard let url = APIEndpoints.polygonUrl(for: stock.ticker) else { return }
+        guard let url = APIEndpoints.polygonUrl(for: ticker) else { return }
         
         print("\n\nStock Detail Url: ", url)
 
