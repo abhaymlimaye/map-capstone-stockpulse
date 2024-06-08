@@ -14,10 +14,6 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Top Movers")
-                    .font(.largeTitle)
-                    .padding()
-
                 Picker("Select Tab", selection: $selectedTab) {
                     Text("Actively Traded").tag(0)
                     Text("Gainers").tag(1)
@@ -28,25 +24,32 @@ struct HomeView: View {
 
                 List {
                     if selectedTab == 0 {
-                        ForEach(viewModel.activelyTraded) { stock in
-                            NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                StockRow(stock: stock)
+                        Section("By Highest Volume") {
+                            ForEach(viewModel.activelyTraded) { stock in
+                                NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
+                                    StockRow(stock: stock)
+                                }
                             }
                         }
                     } else if selectedTab == 1 {
-                        ForEach(viewModel.gainers) { stock in
-                            NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                StockRow(stock: stock)
-                            }
+                        Section("By Highest Growth") {
+                            ForEach(viewModel.gainers) { stock in
+                                NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
+                                    StockRow(stock: stock)
+                                }
                         }
+                    }
                     } else {
-                        ForEach(viewModel.losers) { stock in
-                            NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                StockRow(stock: stock)
+                        Section("By Highest Downfall") {
+                            ForEach(viewModel.losers) { stock in
+                                NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
+                                    StockRow(stock: stock)
+                                }
                             }
                         }
                     }
                 }
+                .navigationTitle("Top Movers")
                 .onAppear {
                     viewModel.fetchTopMovers()
                 }
