@@ -31,9 +31,10 @@ struct SearchView: View {
               
                     List {
                         Section(showRecordCount ? "Found \(viewModel.results.count) matching" : "") {
-                            ForEach(viewModel.results) { result in
+                            ForEach(viewModel.results.indices, id: \.self) { index in
+                                let result = viewModel.results[index]
                                 NavigationLink(destination: StockDetailView(ticker: result.symbol)) {
-                                    ResultRow(result: result)
+                                    ResultRow(result: result, isFirstRow: index == 0)
                                 }
                                 .onAppear() {
                                     showLoader = false
@@ -51,16 +52,59 @@ struct SearchView: View {
 
 struct ResultRow: View {
     let result: SymbolSearchResult
+    let isFirstRow: Bool
+    
+    @StateObject private var viewModel = ResultRowViewModel()
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text(result.symbol)
-                .font(.headline)
-            Text(result.name)
-                .font(.subheadline)
-                .foregroundColor(.gray)
+            if isFirstRow {
+                Text("Best Match")
+                    .font(.subheadline)
+                    .foregroundColor(.accentColor)
+            }
+            HStack(alignment: .center) {
+                VStack(alignment: .leading) {
+                    
+                    Text(result.symbol)
+                        .font(.headline)
+                    Text(result.name)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+                if isFirstRow, let iconURL = viewModel.iconURL, let url = URL(string: iconURL) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                        case .failure:
+                            Image(systemName: "wand.and.stars")
+                        @unknown default:
+                            Image(systemName: "wand.and.stars")
+                        }
+                    }
+                }
+            }
+        }
+        .onAppear {
+            if isFirstRow {
+                viewModel.fetchIcon(for: result.symbol)
+            }
+        }
+        .onChange(of: result.symbol) {
+            if isFirstRow {
+                viewModel.fetchIcon(for: result.symbol)
+            }
         }
     }
 }
+
 
 #Preview {
     SearchView()
