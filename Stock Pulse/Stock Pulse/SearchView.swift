@@ -28,7 +28,19 @@ struct SearchView: View {
                             }
                     }
                     .padding(.vertical)
-              
+                
+                    if(!showRecordCount) {
+                        VStack {
+                            Image("SearchStock-Image")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                //.frame(width: 250, height: 250)
+                            Text("Looking for some specific symbols or companies? We've got you covered! The Search returns the best-matching results based on the keywords of your choice. ")
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
+                    }
+                  
                     List {
                         Section(showRecordCount ? "Found \(viewModel.results.count) matching" : "") {
                             ForEach(viewModel.results.indices, id: \.self) { index in
