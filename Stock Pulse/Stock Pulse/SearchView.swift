@@ -81,8 +81,8 @@ struct ResultRow: View {
                         case .success(let image):
                             image
                                 .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
                         case .failure:
                             Image(systemName: "wand.and.stars")
                         @unknown default:
