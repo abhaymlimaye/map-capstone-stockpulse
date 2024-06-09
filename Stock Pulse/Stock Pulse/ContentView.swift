@@ -20,10 +20,10 @@ struct ContentView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
-            FavoritesView()
-                .tabItem {
-                    Label("Favorites", systemImage: "star")
-                }
+//            FavoritesView()
+//                .tabItem {
+//                    Label("Favorites", systemImage: "star")
+//                }
         }
     }
 }

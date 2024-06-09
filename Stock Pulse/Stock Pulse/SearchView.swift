@@ -82,7 +82,6 @@ struct ResultRow: View {
                             image
                                 .resizable()
                                 .frame(width: 40, height: 40)
-                                .clipShape(Circle())
                         case .failure:
                             Image(systemName: "wand.and.stars")
                         @unknown default:
