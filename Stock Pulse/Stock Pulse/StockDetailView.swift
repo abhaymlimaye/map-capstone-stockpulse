@@ -112,9 +112,10 @@ struct StockDetailView: View {
                 } 
                 else if(!viewModel.isLoading) {
                     Image(systemName: "network.slash")
-                        .padding()
+                        .resizable()
+                        .frame(width: 100, height: 100)
                         .foregroundColor(.secondary)
-                        .frame(width: 100)
+                        .padding()
                     Text("Oops! Data is not available at the moment.")
                         .padding()
                         .foregroundColor(.secondary)

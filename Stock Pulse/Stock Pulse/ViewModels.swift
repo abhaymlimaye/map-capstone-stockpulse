@@ -47,8 +47,6 @@ class StockDetailViewModel: ObservableObject {
         print("\n\nStock Detail Url: ", url)
 
         URLSession.shared.dataTask(with: url) { data, response, error in
-            self.isLoading = false
-            
             if let data = data {
                 do {
                     print("\nStock Detail Raw Data: ", String(data: data, encoding: .utf8) ?? "NA")
@@ -58,8 +56,11 @@ class StockDetailViewModel: ObservableObject {
                         print("\nStock Detail Formatted Data: ", self.stockDetail ?? "NA")
                         print("\nLogo Url: ", APIEndpoints.appendPolygonApiKey(to: self.stockDetail?.branding?.logoURL ?? "NA-"))
                     }
+                    
+                    self.isLoading = false
                 } catch {
                     print("Error decoding stock detail: \(error)")
+                    self.isLoading = false
                 }
             }
         }.resume()
