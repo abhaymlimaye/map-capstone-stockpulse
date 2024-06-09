@@ -69,11 +69,13 @@ struct StockDetail: Codable {
         let tickerRoot: String?
         let tickerSuffix: String?
         let listDate: String?
-        let roundLot: Int?
+        let roundLot: Int64?
         let homepageURL: String?
-        let totalEmployees: Int?
+        let totalEmployees: Int64?
+        let marketCap: Double?
         let branding: Branding?
-        let shareClassSharesOutstanding: Int?
+        let shareClassSharesOutstanding: UInt64?
+        let weightedSharesOutstanding: UInt64?
 
         enum CodingKeys: String, CodingKey {
             case ticker
@@ -97,8 +99,10 @@ struct StockDetail: Codable {
             case roundLot = "round_lot"
             case homepageURL = "homepage_url"
             case totalEmployees = "total_employees"
+            case marketCap = "market_cap"
             case branding
             case shareClassSharesOutstanding = "share_class_shares_outstanding"
+            case weightedSharesOutstanding = "weighted_shares_outstanding"
         }
 }
 struct Branding: Codable {
