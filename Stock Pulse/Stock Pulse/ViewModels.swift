@@ -9,12 +9,15 @@ import Foundation
 import Combine
 
 class StocksViewModel: ObservableObject {
-    @Published var gainers: [Stock] = []
-    @Published var losers: [Stock] = []
-    @Published var activelyTraded: [Stock] = []
+    @Published var gainers: [Stock]? = nil
+    @Published var losers: [Stock]? = nil
+    @Published var activelyTraded: [Stock]? = nil
+    @Published var isLoading: Bool = false
     
     func fetchTopMovers() {
         guard let url = APIEndpoints.topMoversUrl() else { return }
+        
+        isLoading = true
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
@@ -26,9 +29,17 @@ class StocksViewModel: ObservableObject {
                         self.gainers = topMoversResponse.topGainers
                         self.losers = topMoversResponse.topLosers
                         self.activelyTraded = topMoversResponse.mostActivelyTraded
+                        self.isLoading = false
                     }
                 } catch {
                     print("Error decoding top movers: \(error)")
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.isLoading = false
                 }
             }
         }.resume()
@@ -42,7 +53,9 @@ class StockDetailViewModel: ObservableObject {
     func fetchStockDetail(ticker: String) {
         guard let url = APIEndpoints.polygonUrl(for: ticker) else { return }
         
-        isLoading = true
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
         
         print("\n\nStock Detail Url: ", url)
 
@@ -55,16 +68,23 @@ class StockDetailViewModel: ObservableObject {
                         self.stockDetail = detailResponse.results
                         print("\nStock Detail Formatted Data: ", self.stockDetail ?? "NA")
                         print("\nLogo Url: ", APIEndpoints.appendPolygonApiKey(to: self.stockDetail?.branding?.logoURL ?? "NA-"))
+                        self.isLoading = false
                     }
                 } catch {
                     print("Error decoding stock detail: \(error)")
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
                     self.isLoading = false
                 }
             }
-            self.isLoading = false
         }.resume()
     }
 }
+
 
 class SymbolSearchViewModel: ObservableObject {
     @Published var searchText: String = ""

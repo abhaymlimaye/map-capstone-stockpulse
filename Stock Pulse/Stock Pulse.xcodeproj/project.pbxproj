@@ -15,6 +15,7 @@
 		DA5355572C12B6C400D5B042 /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5355562C12B6C400D5B042 /* ViewModels.swift */; };
 		DA5355592C13802100D5B042 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5355582C13802100D5B042 /* APIEndpoints.swift */; };
 		DA53555B2C1393F900D5B042 /* StockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53555A2C1393F900D5B042 /* StockDetailView.swift */; };
+		DA53555F2C155E2B00D5B042 /* NoDataPartial.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA53555E2C155E2B00D5B042 /* NoDataPartial.swift */; };
 		DA602FF42BF8E62000C5FA83 /* Stock_PulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */; };
 		DA602FF82BF8E62300C5FA83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FF72BF8E62300C5FA83 /* Assets.xcassets */; };
 		DA602FFB2BF8E62300C5FA83 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FFA2BF8E62300C5FA83 /* Preview Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		DA5355562C12B6C400D5B042 /* ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
 		DA5355582C13802100D5B042 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		DA53555A2C1393F900D5B042 /* StockDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailView.swift; sourceTree = "<group>"; };
+		DA53555E2C155E2B00D5B042 /* NoDataPartial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataPartial.swift; sourceTree = "<group>"; };
 		DA602FF02BF8E62000C5FA83 /* Stock Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Pulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_PulseApp.swift; sourceTree = "<group>"; };
 		DA602FF72BF8E62300C5FA83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				B92063402C13B8D00090C6E4 /* ContentView.swift */,
 				B92063422C13B9510090C6E4 /* SearchView.swift */,
 				B92063442C13B96E0090C6E4 /* FavoritesView.swift */,
+				DA53555E2C155E2B00D5B042 /* NoDataPartial.swift */,
 			);
 			path = "Stock Pulse";
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 				DA5355552C12B58A00D5B042 /* Models.swift in Sources */,
 				B92063412C13B8D00090C6E4 /* ContentView.swift in Sources */,
 				DA5355532C12AB1200D5B042 /* HomeView.swift in Sources */,
+				DA53555F2C155E2B00D5B042 /* NoDataPartial.swift in Sources */,
 				B92063432C13B9510090C6E4 /* SearchView.swift in Sources */,
 				DA5355572C12B6C400D5B042 /* ViewModels.swift in Sources */,
 				DA53555B2C1393F900D5B042 /* StockDetailView.swift in Sources */,

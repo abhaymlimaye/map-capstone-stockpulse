@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct TopMoversResponse: Codable {
-    var topGainers: [Stock]
-    var topLosers: [Stock]
-    var mostActivelyTraded: [Stock]
+    var topGainers: [Stock]?
+    var topLosers: [Stock]?
+    var mostActivelyTraded: [Stock]?
     
     enum CodingKeys: String, CodingKey {
         case topGainers = "top_gainers"
@@ -20,26 +20,13 @@ struct TopMoversResponse: Codable {
     }
 }
 
-//struct PolygonStockDetail: Decodable {
-//    struct Branding: Decodable {
-//        let logo_url: String
-//    }
-//    
-//    struct Results: Decodable {
-//        let name: String
-//        let branding: Branding
-//    }
-//    
-//    let results: Results
-//}
-
 struct Stock: Identifiable, Codable {
     let id = UUID()
-    let ticker: String
-    let price: String
-    let changePercentage: String
-    let changeAmount: String
-    let volume: String
+    let ticker: String?
+    let price: String?
+    let changePercentage: String?
+    let changeAmount: String?
+    let volume: String?
     
     enum CodingKeys: String, CodingKey {
         case ticker = "ticker"
