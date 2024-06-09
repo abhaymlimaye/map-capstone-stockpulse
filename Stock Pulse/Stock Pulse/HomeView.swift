@@ -29,7 +29,7 @@ struct HomeView: View {
                     }
                     else if let activelyTraded = viewModel.activelyTraded, let gainers = viewModel.gainers, let losers = viewModel.losers {
                         if selectedTab == 0 {
-                            Section("Top 20 By Highest Volume") {
+                            Section("Top 20 By Volume") {
                                 ForEach(activelyTraded) { stock in
                                     NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
                                         StockRow(stock: stock, selectedTab: selectedTab)
@@ -38,7 +38,7 @@ struct HomeView: View {
                             }
                         } 
                         else if selectedTab == 1 {
-                            Section("Top 20 By Highest Growth") {
+                            Section("Top 20 By Growth") {
                                 ForEach(gainers) { stock in
                                     NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
                                         StockRow(stock: stock, selectedTab: selectedTab)
@@ -47,7 +47,7 @@ struct HomeView: View {
                             }
                         } 
                         else {
-                            Section("Top 20 By Highest Downfall") {
+                            Section("Top 20 By Downfall") {
                                 ForEach(losers) { stock in
                                     NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
                                         StockRow(stock: stock, selectedTab: selectedTab)

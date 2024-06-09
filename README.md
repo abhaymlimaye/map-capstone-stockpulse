@@ -14,7 +14,7 @@ Stock Pulse is a easy to use Stock Market Tracking App. Users can track their fa
 
 # Features
 * Users have an animated splash screen when starting the app
-* Users can view the List of Top Performing Stocks
+* Users can view the List of Top Performing (A.K.A. Top Mover) Stocks
 * Users can search for the desired stock using Company Name or Symbol
 * Users can set the app to Dark Mode in the App Settings
 * Users can tap on a Stock to view detailed information about it
