@@ -53,9 +53,8 @@ class StockDetailViewModel: ObservableObject {
     func fetchStockDetail(ticker: String) {
         guard let url = APIEndpoints.polygonUrl(for: ticker) else { return }
         
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
+        self.isLoading = true
+        stockDetail = nil
         
         print("\n\nStock Detail Url: ", url)
 
@@ -88,7 +87,7 @@ class StockDetailViewModel: ObservableObject {
 
 class SymbolSearchViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var results: [SymbolSearchResult] = []
+    @Published var results: [SymbolSearchResult]? = nil
     @Published var isLoading: Bool = false
 
     private let apiKey = "demo"
@@ -99,6 +98,7 @@ class SymbolSearchViewModel: ObservableObject {
         guard let url = APIEndpoints.symbolSearchUrl(for: searchText) else { return }
         
         self.isLoading = true
+        self.results = nil
   
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {

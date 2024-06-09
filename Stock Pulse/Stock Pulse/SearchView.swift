@@ -9,10 +9,8 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var viewModel = SymbolSearchViewModel()
-        @State private var showDetails = false
         @State private var selectedStock: SymbolSearchResult?
         @State private var showRecordCount = false
-        @State private var showLoader = false
 
         var body: some View {
             NavigationStack {
@@ -23,8 +21,8 @@ struct SearchView: View {
                             .padding(.horizontal)
                             .submitLabel(.search)
                             .onSubmit {
-                                showLoader = true
                                 viewModel.search()
+                                showRecordCount = true
                             }
                     }
                     .padding(.vertical)
@@ -46,19 +44,18 @@ struct SearchView: View {
                             ProgressView()
                                 .padding()
                         }
-                        else {
-                            Section(showRecordCount ? "Found \(viewModel.results.count) matching" : "") {
-                                ForEach(viewModel.results.indices, id: \.self) { index in
-                                    let result = viewModel.results[index]
+                        else if let results = viewModel.results {
+                            Section(showRecordCount ? "Found \(results.count) matching" : "") {
+                                ForEach(results.indices, id: \.self) { index in
+                                    let result = results[index]
                                     NavigationLink(destination: StockDetailView(ticker: result.symbol)) {
                                         ResultRow(result: result, isFirstRow: index == 0)
                                     }
-                                    .onAppear() {
-                                        showLoader = false
-                                        showRecordCount = true
-                                    }
                                 }
                             }
+                        }
+                        else if showRecordCount {
+                            NoDataPartial()
                         }
                     }
                     .navigationTitle("Let's find a Stock")
