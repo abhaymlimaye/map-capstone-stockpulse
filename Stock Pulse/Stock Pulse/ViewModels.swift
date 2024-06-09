@@ -89,6 +89,7 @@ class StockDetailViewModel: ObservableObject {
 class SymbolSearchViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var results: [SymbolSearchResult] = []
+    @Published var isLoading: Bool = false
 
     private let apiKey = "demo"
 
@@ -97,22 +98,34 @@ class SymbolSearchViewModel: ObservableObject {
         
         guard let url = APIEndpoints.symbolSearchUrl(for: searchText) else { return }
         
+        self.isLoading = true
+  
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                }
+                return
+            }
             
             do {
                 let response = try JSONDecoder().decode(SymbolSearchResponse.self, from: data)
                 DispatchQueue.main.async {
                     self.results = response.bestMatches.filter { !$0.symbol.contains(".") }
+                    self.isLoading = false
                 }
             } catch {
                 print("Error decoding response: \(error)")
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                }
             }
         }
         
         task.resume()
     }
 }
+
 
 class ResultRowViewModel: ObservableObject {
     @Published var iconURL: String?

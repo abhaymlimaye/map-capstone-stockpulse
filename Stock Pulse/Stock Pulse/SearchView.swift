@@ -29,7 +29,7 @@ struct SearchView: View {
                     }
                     .padding(.vertical)
                 
-                    if(!showRecordCount) {
+                    if !showRecordCount && !viewModel.isLoading {
                         VStack {
                             Image("SearchStock-Image")
                                 .resizable()
@@ -42,15 +42,21 @@ struct SearchView: View {
                     }
                   
                     List {
-                        Section(showRecordCount ? "Found \(viewModel.results.count) matching" : "") {
-                            ForEach(viewModel.results.indices, id: \.self) { index in
-                                let result = viewModel.results[index]
-                                NavigationLink(destination: StockDetailView(ticker: result.symbol)) {
-                                    ResultRow(result: result, isFirstRow: index == 0)
-                                }
-                                .onAppear() {
-                                    showLoader = false
-                                    showRecordCount = true
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .padding()
+                        }
+                        else {
+                            Section(showRecordCount ? "Found \(viewModel.results.count) matching" : "") {
+                                ForEach(viewModel.results.indices, id: \.self) { index in
+                                    let result = viewModel.results[index]
+                                    NavigationLink(destination: StockDetailView(ticker: result.symbol)) {
+                                        ResultRow(result: result, isFirstRow: index == 0)
+                                    }
+                                    .onAppear() {
+                                        showLoader = false
+                                        showRecordCount = true
+                                    }
                                 }
                             }
                         }
@@ -93,7 +99,8 @@ struct ResultRow: View {
                         case .success(let image):
                             image
                                 .resizable()
-                                .frame(width: 40, height: 40)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 40)
                         case .failure:
                             Image(systemName: "wand.and.stars")
                         @unknown default:
