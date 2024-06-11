@@ -44,7 +44,7 @@ struct FavoritesView: View {
                     }
                 }
                 .navigationTitle("The Beloved")
-                .navigationBarItems(leading: Text("Your very own Superstars"), trailing: EditButton()) /*trailing: Image(systemName: "star.square.on.square"))*/
+                .navigationBarItems(leading: Text("Your very own Superstars"), trailing: viewModel.favorites.count == 0 ? nil : EditButton()) /*trailing: Image(systemName: "star.square.on.square"))*/
             }
         }
     
