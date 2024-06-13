@@ -14,20 +14,21 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Picker("Select Tab", selection: $selectedTab) {
-                    Text("Most Traded").tag(0)
-                    Text("Gainers").tag(1)
-                    Text("Losers").tag(2)
+                if viewModel.isLoading {
+                    ProgressView()
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
+                else if let activelyTraded = viewModel.activelyTraded, let gainers = viewModel.gainers, let losers = viewModel.losers {
+                    List {
+                        Picker("Select Tab", selection: $selectedTab) {
+                            Text("Most Traded").tag(0)
+                            Text("Gainers").tag(1)
+                            Text("Losers").tag(2)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .listRowBackground(Color.clear) // Set row background to transparent
+                        .listRowInsets(EdgeInsets()) // Remove paddin
 
-                List {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .padding()
-                    }
-                    else if let activelyTraded = viewModel.activelyTraded, let gainers = viewModel.gainers, let losers = viewModel.losers {
+
                         if selectedTab == 0 {
                             Section("Top 20 By Volume") {
                                 ForEach(activelyTraded) { stock in
@@ -36,7 +37,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                        } 
+                        }
                         else if selectedTab == 1 {
                             Section("Top 20 By Growth") {
                                 ForEach(gainers) { stock in
@@ -45,7 +46,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                        } 
+                        }
                         else {
                             Section("Top 20 By Downfall") {
                                 ForEach(losers) { stock in
@@ -55,20 +56,22 @@ struct HomeView: View {
                                 }
                             }
                         }
-                    }
-                    else {
-                        NoDataPartial()
-                    }
-                    
+                        
+                    }.refreshable {
+                        viewModel.fetchTopMovers()
+                    }//list
                 }
-                .navigationTitle("Top Movers")
-                .navigationBarItems(leading: Text("Discover from the Last Trading Day"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
-                .onAppear {
-                    viewModel.fetchTopMovers()
+                else {
+                    NoDataPartial()
                 }
+            }//vstack
+            .navigationTitle("Top Movers")
+            .navigationBarItems(leading: Text("Last Trading Day's"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
+            .onAppear {
+                viewModel.fetchTopMovers()
             }
-        }
-    }
+        }//navigationstack
+    }//body
 }
 
 struct StockRow: View {

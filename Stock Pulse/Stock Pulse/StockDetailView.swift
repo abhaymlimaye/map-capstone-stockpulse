@@ -11,18 +11,18 @@ struct StockDetailView: View {
     let ticker: String
     @StateObject private var viewModel = StockDetailViewModel()
     @ObservedObject var favouritesViewModel = FavoritesViewModel.shared
+    @State var showGraphs = false
 
     var body: some View {
         ScrollView {
             VStack() {
-                if viewModel.isLoading {
+                if viewModel.isLoading { //loading
                     Spacer()
                     ProgressView()
                         .padding()
                     Spacer()
                 }
-                
-                if let stockDetail = viewModel.stockDetail, !viewModel.isLoading {
+                else if let stockDetail = viewModel.stockDetail { //details data
                     HStack(alignment: .center) {
                         if let logoURL = stockDetail.branding?.logoURL, let url = URL(string: APIEndpoints.appendPolygonApiKey(to: logoURL)) {
                             AsyncImage(url: url) { image in
@@ -34,31 +34,44 @@ struct StockDetailView: View {
                                 ProgressView()
                                     .frame(width: 100, height: 100)
                             }
-                        }
+                        } //logo
                         
+                        //symbol, name and website
                         VStack(alignment: .leading){
+                            //name
                             Text(stockDetail.name ?? ticker)
                                 .font(.title2)
+                            
+                            //symbol
+                            Text(ticker)
+                                .font(.headline)
+                                .foregroundColor(.secondary)
                                 .padding(.bottom)
+                            
                             HStack(alignment: .center){
-                                Text(ticker)
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
+                                //graphs button
+                                Button(" Charts", systemImage: "chart.xyaxis.line", action: {
+                                    showGraphs = true
+                                })
+                                .buttonStyle(.borderedProminent)
                         
-                                Spacer()
+                                //Spacer()
                                 
+                                //website
                                 if let homepageURL = stockDetail.homepageURL, let url = URL(string: homepageURL) {
                                     Link(destination: url) {
                                         Image(systemName: "safari")
                                         Text("Website")
                                     }
-                                    .font(.subheadline)
+                                    .buttonStyle(.bordered)
+                                    //.font(.subheadline)
                                 }
                             }
                         }
-                    }
+                    } //hstack
                     .padding()
     
+                    //description
                     Text(stockDetail.description ?? "")
                         .padding()
                     
@@ -109,13 +122,17 @@ struct StockDetailView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                     
-                    
-                } 
-                else {
+                    //graphs
+                    .sheet(isPresented: $showGraphs, content: {
+                        StockGraphsView().presentationDetents([.medium, .large])
+                    })
+                } //end details data
+                else { //failure case
                     NoDataPartial(show: !viewModel.isLoading)
                 }
-            }
-        }
+            } //vstack
+        } //scrollview
+        .navigationTitle("The Analysis")
         .navigationBarItems(trailing: Button("", systemImage: favouritesViewModel.isFavorite(symbol: ticker) ? "star.circle.fill" : "star.circle", action: {
                 if favouritesViewModel.isFavorite(symbol: ticker) {
                     favouritesViewModel.removeFavorite(symbol: ticker)
@@ -123,7 +140,7 @@ struct StockDetailView: View {
                 else {
                     favouritesViewModel.addFavorite(stock: FavoriteStock(name: viewModel.stockDetail?.name ?? "", ticker: ticker))
                 }
-        }).foregroundColor(favouritesViewModel.isFavorite(symbol: ticker) ? .orange : .secondary)
+            }).foregroundColor(favouritesViewModel.isFavorite(symbol: ticker) ? .orange : .secondary)
         )
         .onAppear {
             viewModel.fetchStockDetail(ticker: ticker)
