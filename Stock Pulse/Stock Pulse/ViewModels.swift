@@ -149,3 +149,47 @@ class ResultRowViewModel: ObservableObject {
             })
     }
 }
+
+class FavoritesViewModel: ObservableObject {
+    static let shared = FavoritesViewModel()
+
+    @Published var favorites: [FavoriteStock] = []
+    private let userDefaultsKey = "favorites"
+
+    private init() {
+        loadFavorites()
+    }
+
+    func addFavorite(stock: FavoriteStock) {
+        guard !favorites.contains(where: { $0.ticker == stock.ticker }) else { return }
+        favorites.append(stock)
+        saveFavorites()
+    }
+
+    func removeFavorite(symbol: String) {
+        favorites.removeAll { $0.ticker == symbol }
+        saveFavorites()
+    }
+    
+    func moveFavorite(from source: IndexSet, to destination: Int) {
+       favorites.move(fromOffsets: source, toOffset: destination)
+       saveFavorites()
+   }
+
+    func isFavorite(symbol: String) -> Bool {
+        return favorites.contains { $0.ticker == symbol }
+    }
+
+    private func saveFavorites() {
+        if let encoded = try? JSONEncoder().encode(favorites) {
+            UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
+        }
+    }
+
+    private func loadFavorites() {
+        if let savedFavorites = UserDefaults.standard.data(forKey: userDefaultsKey),
+           let decodedFavorites = try? JSONDecoder().decode([FavoriteStock].self, from: savedFavorites) {
+            favorites = decodedFavorites
+        }
+    }
+}
