@@ -13,22 +13,35 @@ struct FavoritesView: View {
     var body: some View {
             NavigationStack {
                 VStack {
-                    
-                    List {
-                        Section("You have \(viewModel.favorites.count) gem(s)") {
-                            ForEach(viewModel.favorites) { stock in
-                                NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
-                                    HStack {
-                                        Text(stock.ticker).font(.headline)
-                                        Spacer()
-                                        Text(stock.name).font(.subheadline).foregroundColor(.secondary).multilineTextAlignment(.trailing)
-                                    }
-                                }//navlink
-                            }
-                            .onDelete(perform: deleteFavorite)
-                            .onMove(perform: moveFavorite)
-                        }//section
-                    }//list
+                    if viewModel.favorites.count == 0 {
+                        VStack {
+                            Image("AddFavourite-Image")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 150)
+                            Text("Add your Favourites by Taping the Star Button from The Analysis Screen")
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding()
+                    }
+                    else {
+                        List {
+                            Section("You have \(viewModel.favorites.count) gem(s)") {
+                                ForEach(viewModel.favorites) { stock in
+                                    NavigationLink(destination: StockDetailView(ticker: stock.ticker)) {
+                                        HStack {
+                                            Text(stock.ticker).font(.headline)
+                                            Spacer()
+                                            Text(stock.name).font(.subheadline).foregroundColor(.secondary).multilineTextAlignment(.trailing)
+                                        }
+                                    }//navlink
+                                }
+                                .onDelete(perform: deleteFavorite)
+                                .onMove(perform: moveFavorite)
+                            }//section
+                        }//list
+                    }
                 }
                 .navigationTitle("The Beloved")
                 .navigationBarItems(leading: Text("Your very own Superstars"), trailing: EditButton()) /*trailing: Image(systemName: "star.square.on.square"))*/
