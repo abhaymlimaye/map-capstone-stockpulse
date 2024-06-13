@@ -10,6 +10,7 @@ import SwiftUI
 struct StockDetailView: View {
     let ticker: String
     @StateObject private var viewModel = StockDetailViewModel()
+    @ObservedObject var favouritesViewModel = FavoritesViewModel.shared
 
     var body: some View {
         ScrollView {
@@ -114,10 +115,20 @@ struct StockDetailView: View {
                     NoDataPartial(show: !viewModel.isLoading)
                 }
             }
-        }.onAppear {
+        }
+        .navigationBarItems(trailing: Button("", systemImage: favouritesViewModel.isFavorite(symbol: ticker) ? "star.circle.fill" : "star.circle", action: {
+                if favouritesViewModel.isFavorite(symbol: ticker) {
+                    favouritesViewModel.removeFavorite(symbol: ticker)
+                }
+                else {
+                    favouritesViewModel.addFavorite(stock: FavoriteStock(name: viewModel.stockDetail?.name ?? "", ticker: ticker))
+                }
+        }).foregroundColor(favouritesViewModel.isFavorite(symbol: ticker) ? .orange : .secondary)
+        )
+        .onAppear {
             viewModel.fetchStockDetail(ticker: ticker)
         }
-    }
+    }//end body
 }
 
 struct MetricTile: View{
