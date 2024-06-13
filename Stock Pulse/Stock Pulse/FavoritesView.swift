@@ -35,7 +35,15 @@ struct FavoritesView: View {
             }
         }
     
+    private func deleteFavorite(at offsets: IndexSet) {
+        for index in offsets {
+            viewModel.removeFavorite(symbol: viewModel.favorites[index].ticker)
+        }
     }
+    
+    private func moveFavorite(from source: IndexSet, to destination: Int) {
+       viewModel.moveFavorite(from: source, to: destination)
+   }
 }
 
 #Preview {
