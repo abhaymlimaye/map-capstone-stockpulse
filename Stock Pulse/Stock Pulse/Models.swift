@@ -136,3 +136,9 @@ struct IconResponse: Decodable {
     let url: String
 }
 
+struct FavoriteStock: Codable, Identifiable {
+    var id: String { ticker }
+    var name: String
+    var ticker: String
+}
+
