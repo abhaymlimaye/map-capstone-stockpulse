@@ -32,6 +32,7 @@ struct APIEndpoints {
     private static let polygonTickerEndpoint = "/reference/tickers"
     private static let twelvedataBaseUrl = "https://api.twelvedata.com"
     private static let twelvedataLogoEndpoint = "/logo"
+    private static let twelevedataTimeseriesEndpoint = "/time_series"
 
     private static func getRandomApiKey(from keyList: [String]) -> String {
         return keyList.randomElement() ?? keyList[0]
@@ -75,6 +76,18 @@ struct APIEndpoints {
             URLQueryItem(name: "symbol", value: symbol),
             URLQueryItem(name: "apikey", value: getRandomApiKey(from: apiKeysTwelvedata))
         ]
+        return components?.url
+    }
+    
+    static func timeseriesUrl(symbol: String, interval: String, outputsize: Int) -> URL? {
+        var components = URLComponents(string: twelvedataBaseUrl + twelevedataTimeseriesEndpoint)
+        components?.queryItems = [
+            URLQueryItem(name: "apikey", value: getRandomApiKey(from: apiKeysTwelvedata)),
+            URLQueryItem(name: "symbol", value: symbol),
+            URLQueryItem(name: "interval", value: interval),
+            URLQueryItem(name: "outputsize", value: String(outputsize))
+        ]
+        
         return components?.url
     }
 }
