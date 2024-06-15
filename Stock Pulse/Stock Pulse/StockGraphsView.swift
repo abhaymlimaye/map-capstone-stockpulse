@@ -10,6 +10,9 @@ import Charts
 
 struct StockGraphsView: View {
     var stockDetail: StockDetail
+    
+    @Binding var show: Bool
+    
     @StateObject private var viewModelForLatest = TimeSeriesViewModel()
     
     @State private var selectedIntervalForLatest = 0
@@ -19,11 +22,21 @@ struct StockGraphsView: View {
     var body: some View {
         ScrollView {
             VStack() {
-                Text("Price Trends (\(stockDetail.currencyName?.uppercased() ?? ""))")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    .padding(.top)
-
-                
+                HStack(alignment: .center) {
+                    Text("Price Trends (\(stockDetail.currencyName?.uppercased() ?? ""))")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    Button("", systemImage: "xmark", action: {
+                        show = false
+                    }).buttonStyle(BorderlessButtonStyle())
+                    
+                    
+                }
+                .padding(.top)
+                .padding(.horizontal)
+        
                 HStack(alignment: .center){
                     Text("Most Recent").font(.title2).foregroundStyle(.secondary)
                     

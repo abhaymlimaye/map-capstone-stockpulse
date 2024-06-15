@@ -124,7 +124,7 @@ struct StockDetailView: View {
                     
                     //graphs
                     .sheet(isPresented: $showGraphs, content: {
-                        StockGraphsView(stockDetail: stockDetail).presentationDetents([.medium, .large])
+                        StockGraphsView(stockDetail: stockDetail, show: $showGraphs).presentationDetents([.medium, .large])
                     })
                 } //end details data
                 else { //failure case
