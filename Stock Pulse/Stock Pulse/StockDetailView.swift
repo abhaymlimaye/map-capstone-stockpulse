@@ -36,7 +36,7 @@ struct StockDetailView: View {
                             }
                         } //logo
                         
-                        //symbol, name and website
+                        //symbol, name, charts button and website
                         VStack(alignment: .leading){
                             //name
                             Text(stockDetail.name ?? ticker)
@@ -49,7 +49,7 @@ struct StockDetailView: View {
                                 .padding(.bottom)
                             
                             HStack(alignment: .center){
-                                //graphs button
+                                //charts button
                                 Button(" Charts", systemImage: "chart.xyaxis.line", action: {
                                     showGraphs = true
                                 })
@@ -124,7 +124,7 @@ struct StockDetailView: View {
                     
                     //graphs
                     .sheet(isPresented: $showGraphs, content: {
-                        StockGraphsView().presentationDetents([.medium, .large])
+                        StockGraphsView(stockDetail: stockDetail).presentationDetents([.medium, .large])
                     })
                 } //end details data
                 else { //failure case
