@@ -193,3 +193,59 @@ class FavoritesViewModel: ObservableObject {
         }
     }
 }
+
+class TimeSeriesViewModel: ObservableObject {
+    @Published var timeSeriesValues: [ConvertedTimeSeriesValue]? = nil
+    static let outputsize = 20
+    private var cancellables = Set<AnyCancellable>()
+
+    func fetchTimeSeries(symbol: String, interval: String) {
+        guard let url = APIEndpoints.timeseriesUrl(symbol: symbol, interval: interval, outputsize: TimeSeriesViewModel.outputsize) else {
+            print("Invalid Time Series URL")
+            return
+        }
+
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: TimeSeriesResponse.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error fetching data: \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] response in
+                self?.timeSeriesValues = self?.getConvertedData(from: response.values)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func getConvertedData(from data: [TimeSeriesValue]) -> [ConvertedTimeSeriesValue]? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Ensure this format matches the input datetime format
+        
+        return data.compactMap { value in
+            guard
+                let date = formatter.date(from: value.datetime),
+                let open = Double(value.open),
+                let high = Double(value.high),
+                let low = Double(value.low),
+                let close = Double(value.close),
+                let volume = Int(value.volume)
+            else {
+                return nil
+            }
+
+            return ConvertedTimeSeriesValue(
+                datetime: date,
+                open: open,
+                high: high,
+                low: low,
+                close: close,
+                volume: volume
+            )
+        }
+    }
+}
