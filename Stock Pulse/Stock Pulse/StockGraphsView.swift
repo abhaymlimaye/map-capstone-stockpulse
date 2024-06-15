@@ -24,8 +24,12 @@ struct StockGraphsView: View {
             VStack() {
                 //header
                 HStack(alignment: .center) {
-                    Text("Price Trends (\(stockDetail.currencyName?.uppercased() ?? ""))")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                    if let currencyName = stockDetail.currencyName?.uppercased() {
+                        Text("Price Trends (\(currencyName))")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                    } else {
+                        Text("Price Trends")
+                    }
                     
                     Spacer()
                     
