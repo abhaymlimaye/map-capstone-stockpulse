@@ -142,3 +142,26 @@ struct FavoriteStock: Codable, Identifiable {
     var ticker: String
 }
 
+
+struct TimeSeriesResponse: Codable {
+    let values: [TimeSeriesValue]
+}
+struct TimeSeriesValue: Codable, Identifiable {
+    var id: String { datetime }
+    let datetime: String
+    let open: String
+    let high: String
+    let low: String
+    let close: String
+    let volume: String
+}
+struct ConvertedTimeSeriesValue: Identifiable {
+    var id = UUID()
+    var datetime: Date
+    var open: Double
+    var high: Double
+    var low: Double
+    var close: Double
+    var volume: Int
+}
+
