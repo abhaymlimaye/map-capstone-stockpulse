@@ -196,6 +196,8 @@ class FavoritesViewModel: ObservableObject {
 
 class TimeSeriesViewModel: ObservableObject {
     @Published var timeSeriesValues: [ConvertedTimeSeriesValue]? = nil
+    @Published var isLoading: Bool = false
+    
     static let outputsize = 20
     private var cancellables = Set<AnyCancellable>()
 
@@ -204,12 +206,16 @@ class TimeSeriesViewModel: ObservableObject {
             print("Invalid Time Series URL")
             return
         }
+        
+        isLoading = true
+        timeSeriesValues = nil
 
         URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: TimeSeriesResponse.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
+                self.isLoading = false
                 switch completion {
                 case .failure(let error):
                     print("Error fetching data: \(error)")
@@ -218,6 +224,7 @@ class TimeSeriesViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] response in
                 self?.timeSeriesValues = self?.getConvertedData(from: response.values)
+                self?.isLoading = false
             })
             .store(in: &cancellables)
     }

@@ -22,43 +22,52 @@ struct StockGraphsView: View {
     var body: some View {
         ScrollView {
             VStack() {
+                //header
                 HStack(alignment: .center) {
                     Text("Price Trends (\(stockDetail.currencyName?.uppercased() ?? ""))")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
                     
                     Spacer()
                     
-                    Button("", systemImage: "xmark", action: {
-                        show = false
-                    }).buttonStyle(BorderlessButtonStyle())
-                    
-                    
+                    Button("", systemImage: "xmark", action: { show = false }).buttonStyle(BorderlessButtonStyle())
                 }
                 .padding(.top)
                 .padding(.horizontal)
+                //end header
         
-                HStack(alignment: .center){
-                    Text("Most Recent").font(.title2).foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    Button("", systemImage: "arrow.clockwise", action: {
-                        fetchLatestData()
-                    })
-                    
-                    Picker("Interval", selection: $selectedIntervalForLatest) {
-                        ForEach(intervalListForLatest.indices, id: \.self) { index in
-                            Text(intervalListForLatest[index]).tag(index)
-                        }
-                    }
-                    .onChange(of: selectedIntervalForLatest) {
-                        fetchLatestData()
-                    } //picker
+                //latest price chart
+                //loading
+                if viewModelForLatest.isLoading {
+                    ProgressView().padding()
                 }
-                .padding(.horizontal)
+                //valid data
+                else if let timeSeriesValues = viewModelForLatest.timeSeriesValues {
+                    HStack(alignment: .center){
+                        Text("Most Recent").font(.title2).foregroundStyle(.secondary)
+                        
+                        Spacer()
+                        
+                        Button("", systemImage: "arrow.clockwise", action: { fetchLatestData() })
+                        
+                        Picker("Interval", selection: $selectedIntervalForLatest) {
+                            ForEach(intervalListForLatest.indices, id: \.self) { index in
+                                Text(intervalListForLatest[index]).tag(index)
+                            }
+                        }
+                        .onChange(of: selectedIntervalForLatest) { fetchLatestData() } //picker
+                    }
+                    .padding(.horizontal)
+                    
+                    LineChart(data: timeSeriesValues).frame(height: 300)
+                }
+                //no data
+                else {
+                    VStack(alignment: .leading) {
+                        Text("Most Recent").font(.title2).foregroundStyle(.secondary).padding(.vertical)
+                        NoDataPartial()
+                    }
+                }
                 
-                LineChart(data: viewModelForLatest.timeSeriesValues ?? [])
-                    .frame(height: 300)
             } //vstack
             .onAppear {
                 fetchLatestData()
