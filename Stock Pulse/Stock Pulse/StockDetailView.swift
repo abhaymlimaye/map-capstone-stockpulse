@@ -139,7 +139,7 @@ struct StockDetailView: View {
                 else {
                     favouritesViewModel.addFavorite(stock: FavoriteStock(name: viewModel.stockDetail?.name ?? "", ticker: ticker))
                 }
-            }).foregroundColor(favouritesViewModel.isFavorite(symbol: ticker) ? .orange : .secondary)
+        }).foregroundColor(favouritesViewModel.isFavorite(symbol: ticker) ? .orange : .accentColor)
         )
         .onAppear {
             viewModel.fetchStockDetail(ticker: ticker)
