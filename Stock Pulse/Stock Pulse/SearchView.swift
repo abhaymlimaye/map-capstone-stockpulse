@@ -15,22 +15,8 @@ struct SearchView: View {
         var body: some View {
             NavigationStack {
                 VStack {
-                    HStack { //search box
-                        TextField("type a symbol or a name...", text: $viewModel.searchText)
-                            .textFieldStyle(.roundedBorder)
-                            .padding(.horizontal)
-                            .submitLabel(.search)
-                            .onSubmit {
-                                viewModel.search()
-                                showRecordCount = true
-                            }
-                    }
-                    .padding(.vertical)
-                  
                     if viewModel.isLoading { //loading
-                        Spacer()
                         ProgressView()
-                        Spacer()
                     }
                     else if let results = viewModel.results { //searching finished
                         List {
@@ -48,22 +34,25 @@ struct SearchView: View {
                         NoDataPartial()
                     }
                     else { //first time visit
-                        VStack {
-                            Spacer()
-                            Image("SearchStock-Image")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 150)
-                            Text("Looking for some specific symbols or companies? We've got you covered! The Search returns the best-matching results based on the keywords of your choice. ")
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                            Spacer()
-                        }
+                        Image("SearchStock-Image")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 150)
+                        Text("Looking for some specific symbols or companies? We've got you covered! The Search returns the best-matching results based on the keywords of your choice. ")
+                            .foregroundColor(.secondary)
                         .padding()
                     }
                 }
                 .navigationTitle("Let's find a Stock")
                 .navigationBarItems(leading: Text("What do you want to look for?"), trailing: Image(systemName: "waveform.badge.magnifyingglass"))
+                .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Type a symbol or a name...")
+                .onSubmit(of: .search) {
+                    viewModel.search()
+                    showRecordCount = true
+                }
+                .refreshable {
+                    viewModel.search()
+                }
             }
         }
     }

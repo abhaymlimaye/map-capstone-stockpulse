@@ -14,15 +14,13 @@ struct FavoritesView: View {
             NavigationStack {
                 VStack {
                     if viewModel.favorites.count == 0 {
-                        VStack {
-                            Image("AddFavourite-Image")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 150)
-                            Text("Add your Favourites by Taping the Star Button from The Analysis Screen")
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                        }
+                        Image("AddFavourite-Image")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 150)
+                        Text("Add your Favourites by Taping the Star Button from The Analysis Screen")
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
                         .padding()
                     }
                     else {

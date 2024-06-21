@@ -20,7 +20,7 @@ struct TopMoversResponse: Codable {
     }
 }
 
-struct Stock: Identifiable, Codable {
+struct Stock: Identifiable, Codable, Equatable {
     let id = UUID()
     let ticker: String?
     let price: String?

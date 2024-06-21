@@ -10,6 +10,12 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = StocksViewModel()
     @State private var selectedTab = 0
+    
+    private let tabs: [Tab<StocksViewModel, [Stock]?>] = [
+        Tab(tabName: "Most Traded", sectionTitle: "Top 20 By Volume", dataPath: \StocksViewModel.activelyTraded),
+        Tab(tabName: "Gainers", sectionTitle: "Top 20 By Growth", dataPath: \StocksViewModel.gainers),
+        Tab(tabName: "Losers", sectionTitle: "Top 20 By Downfall", dataPath: \StocksViewModel.losers)
+    ]
 
     var body: some View {
         NavigationStack {
@@ -17,47 +23,27 @@ struct HomeView: View {
                 if viewModel.isLoading {
                     ProgressView()
                 }
-                else if let activelyTraded = viewModel.activelyTraded, let gainers = viewModel.gainers, let losers = viewModel.losers {
+                else if let stocks: [Stock] = viewModel[keyPath: tabs[selectedTab].dataPath] {
                     List {
                         Picker("Select Tab", selection: $selectedTab) {
-                            Text("Most Traded").tag(0)
-                            Text("Gainers").tag(1)
-                            Text("Losers").tag(2)
+                            ForEach(Array(tabs.enumerated()), id: \.offset) { index, tab in
+                                Text(tab.tabName).tag(index)
+                            }
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .listRowBackground(Color.clear) // Set row background to transparent
-                        .listRowInsets(EdgeInsets()) // Remove paddin
+                        .listRowInsets(EdgeInsets()) // Remove padding
 
-
-                        if selectedTab == 0 {
-                            Section("Top 20 By Volume") {
-                                ForEach(activelyTraded) { stock in
-                                    NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
-                                        StockRow(stock: stock, selectedTab: selectedTab)
-                                    }
+                        Section(tabs[selectedTab].sectionTitle) {
+                            ForEach(stocks) { stock in
+                                NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
+                                    StockRow(stock: stock, selectedTab: selectedTab)
                                 }
                             }
-                        }
-                        else if selectedTab == 1 {
-                            Section("Top 20 By Growth") {
-                                ForEach(gainers) { stock in
-                                    NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
-                                        StockRow(stock: stock, selectedTab: selectedTab)
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            Section("Top 20 By Downfall") {
-                                ForEach(losers) { stock in
-                                    NavigationLink(destination: StockDetailView(ticker: stock.ticker ?? "")) {
-                                        StockRow(stock: stock, selectedTab: selectedTab)
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }.refreshable {
+                        } //section
+                    }
+                    .animation(.default, value: viewModel[keyPath: tabs[selectedTab].dataPath])
+                    .refreshable {
                         viewModel.fetchTopMovers()
                     }//list
                 }
@@ -66,12 +52,20 @@ struct HomeView: View {
                 }
             }//vstack
             .navigationTitle("Top Movers")
+            .toolbar {
+                ToolbarItem(placement: .principal) {Text("")} }
             .navigationBarItems(leading: Text("Last Trading Day's"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
             .onAppear {
                 viewModel.fetchTopMovers()
             }
         }//navigationstack
     }//body
+}
+
+struct Tab<Root, Value> {
+    let tabName: String
+    let sectionTitle: String
+    let dataPath: KeyPath<Root, Value>
 }
 
 struct StockRow: View {
