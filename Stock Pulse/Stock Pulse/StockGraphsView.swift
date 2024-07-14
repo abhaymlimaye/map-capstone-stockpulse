@@ -96,7 +96,7 @@ struct ChartSectionView: View {
                 }
             }
             
-        }.frame(height: 380) //vstack
+        }.frame(height: 370) //vstack
         .onAppear {
             fetchData()
         }
