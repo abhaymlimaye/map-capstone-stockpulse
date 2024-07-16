@@ -195,6 +195,12 @@ class FavoritesViewModel: ObservableObject {
 }
 
 class TimeSeriesViewModel: ObservableObject {
+    var dateTimeFormat: String
+    
+    init(dateTimeFormat: String) {
+        self.dateTimeFormat = dateTimeFormat
+    }
+    
     @Published var timeSeriesValues: [ConvertedTimeSeriesValue]? = nil
     @Published var isLoading: Bool = false
     
@@ -231,7 +237,7 @@ class TimeSeriesViewModel: ObservableObject {
     
     func getConvertedData(from data: [TimeSeriesValue]) -> [ConvertedTimeSeriesValue]? {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Ensure this format matches the input datetime format
+        formatter.dateFormat = dateTimeFormat
         
         return data.compactMap { value in
             guard

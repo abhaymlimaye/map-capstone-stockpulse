@@ -9,12 +9,12 @@ import SwiftUI
 import Charts
 
 struct StockGraphsView: View {
-    var stockDetail: StockDetail
+    let stockDetail: StockDetail
     
     @Binding var show: Bool
 
     var body: some View {
-        ScrollView {
+        VStack {
             //header
             HStack(alignment: .center) {
                 if let currencyName = stockDetail.currencyName?.uppercased() {
@@ -32,21 +32,33 @@ struct StockGraphsView: View {
             .padding(.horizontal)
             //end header
             
-            ChartSectionView(stockDetail: stockDetail, intervalList: ["1min", "5min", "15min", "30min", "45min", "1h"], title: "Most Recent")
-            
-            Divider().padding()
-            
-            ChartSectionView(stockDetail: stockDetail, intervalList: ["1h", "4h", "1day", "1week", "1month"], title: "Historical")
-        } //scrollview
-    }
+            ScrollView {
+                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: ["1min", "5min", "15min", "30min", "45min", "1h", "4h"], title: "Most Recent", dateTimeFormat: "yyyy-MM-dd HH:mm:ss")
+                
+                Divider().padding()
+                
+                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: ["1day", "1week", "1month"], title: "Historical", dateTimeFormat: "yyyy-MM-dd")
+            } //scrollview
+        }//vstack
+    }//body
 }
 
 struct ChartSectionView: View {
-    var stockDetail: StockDetail
-    var intervalList: [String]
-    var title: String
+    //let stockDetail: StockDetail
+    let symbol: String
+    let intervalList: [String]
+    let title: String
+    let dateTimeFormat: String
  
-    @StateObject private var viewModel = TimeSeriesViewModel()
+    @StateObject private var viewModel: TimeSeriesViewModel
+        
+    init(symbol: String, intervalList: [String], title: String, dateTimeFormat: String) {
+        self.symbol = symbol
+        self.intervalList = intervalList
+        self.title = title
+        self.dateTimeFormat = dateTimeFormat
+        _viewModel = StateObject(wrappedValue: TimeSeriesViewModel(dateTimeFormat: dateTimeFormat))
+    }
     
     @State private var selectedInterval = 0
     
@@ -91,7 +103,7 @@ struct ChartSectionView: View {
     }
     
     private func fetchData() {
-        viewModel.fetchTimeSeries(symbol: stockDetail.ticker ?? "", interval: intervalList[selectedInterval])
+        viewModel.fetchTimeSeries(symbol: symbol, interval: intervalList[selectedInterval])
     }
 }
 
