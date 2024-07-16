@@ -195,20 +195,36 @@ class FavoritesViewModel: ObservableObject {
 }
 
 class TimeSeriesViewModel: ObservableObject {
-    var dateTimeFormat: String
+    let timeSeriesMode: TimeSeriesMode
     
-    init(dateTimeFormat: String) {
-        self.dateTimeFormat = dateTimeFormat
+    init(timeSeriesMode: TimeSeriesMode) {
+        self.timeSeriesMode = timeSeriesMode
+        
+        switch(timeSeriesMode) {
+            case .recent:
+                self.dateTimeFormat = "yyyy-MM-dd HH:mm:ss"
+                self.additionalUrlParams = [URLQueryItem(name: "date", value: "today")]
+                self.outputsize = 10
+                break
+            case .historical:
+                self.dateTimeFormat = "yyyy-MM-dd"
+                self.outputsize = 30
+                break
+        }
     }
+    
+    private var dateTimeFormat: String
+    private var additionalUrlParams: [URLQueryItem]?
+    private var outputsize: Int
     
     @Published var timeSeriesValues: [ConvertedTimeSeriesValue]? = nil
     @Published var isLoading: Bool = false
     
-    static let outputsize = 20
+   
     private var cancellables = Set<AnyCancellable>()
 
-    func fetchTimeSeries(symbol: String, interval: String) {
-        guard let url = APIEndpoints.timeseriesUrl(symbol: symbol, interval: interval, outputsize: TimeSeriesViewModel.outputsize) else {
+    func fetchTimeSeries(symbol: String, interval: Interval) {
+        guard let url = APIEndpoints.timeseriesUrl(symbol: symbol, interval: interval.rawValue, outputsize: outputsize, additionalParams: additionalUrlParams) else {
             print("Invalid Time Series URL")
             return
         }

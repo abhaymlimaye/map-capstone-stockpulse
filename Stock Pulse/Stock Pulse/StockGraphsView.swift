@@ -33,11 +33,11 @@ struct StockGraphsView: View {
             //end header
             
             ScrollView {
-                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: ["1min", "5min", "15min", "30min", "45min", "1h", "4h"], title: "Most Recent", dateTimeFormat: "yyyy-MM-dd HH:mm:ss")
+                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: Interval.recentIntervals, title: "Most Recent", timeSeriesMode: .recent)
                 
                 Divider().padding()
                 
-                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: ["1day", "1week", "1month"], title: "Historical", dateTimeFormat: "yyyy-MM-dd")
+                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: Interval.historicalIntervals, title: "Historical", timeSeriesMode: .historical)
             } //scrollview
         }//vstack
     }//body
@@ -46,18 +46,18 @@ struct StockGraphsView: View {
 struct ChartSectionView: View {
     //let stockDetail: StockDetail
     let symbol: String
-    let intervalList: [String]
+    let intervalList: [Interval]
     let title: String
-    let dateTimeFormat: String
+    let timeSeriesMode: TimeSeriesMode
  
     @StateObject private var viewModel: TimeSeriesViewModel
         
-    init(symbol: String, intervalList: [String], title: String, dateTimeFormat: String) {
+    init(symbol: String, intervalList: [Interval], title: String, timeSeriesMode: TimeSeriesMode) {
         self.symbol = symbol
         self.intervalList = intervalList
         self.title = title
-        self.dateTimeFormat = dateTimeFormat
-        _viewModel = StateObject(wrappedValue: TimeSeriesViewModel(dateTimeFormat: dateTimeFormat))
+        self.timeSeriesMode = timeSeriesMode
+        _viewModel = StateObject(wrappedValue: TimeSeriesViewModel(timeSeriesMode: timeSeriesMode))
     }
     
     @State private var selectedInterval = 0
@@ -79,14 +79,14 @@ struct ChartSectionView: View {
                     
                     Picker("Interval", selection: $selectedInterval) {
                         ForEach(intervalList.indices, id: \.self) { index in
-                            Text(intervalList[index]).tag(index)
+                            Text(intervalList[index].rawValue).tag(index)
                         }
                     }
                     .onChange(of: selectedInterval) { fetchData() } //picker
                 }
                 .padding(.horizontal)
                 
-                LineChart(data: timeSeriesValues).frame(height: 320)
+                LineChart(data: timeSeriesValues)
             }
             //no data
             else {
@@ -96,7 +96,7 @@ struct ChartSectionView: View {
                 }
             }
             
-        } //vstack
+        }.frame(height: 380) //vstack
         .onAppear {
             fetchData()
         }

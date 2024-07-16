@@ -79,7 +79,7 @@ struct APIEndpoints {
         return components?.url
     }
     
-    static func timeseriesUrl(symbol: String, interval: String, outputsize: Int) -> URL? {
+    static func timeseriesUrl(symbol: String, interval: String, outputsize: Int, additionalParams: [URLQueryItem]?) -> URL? {
         var components = URLComponents(string: twelvedataBaseUrl + twelevedataTimeseriesEndpoint)
         components?.queryItems = [
             URLQueryItem(name: "apikey", value: getRandomApiKey(from: apiKeysTwelvedata)),
@@ -87,6 +87,10 @@ struct APIEndpoints {
             URLQueryItem(name: "interval", value: interval),
             URLQueryItem(name: "outputsize", value: String(outputsize))
         ]
+        
+        if let additionalParams = additionalParams {
+            components?.queryItems?.append(contentsOf: additionalParams)
+        }
         
         return components?.url
     }

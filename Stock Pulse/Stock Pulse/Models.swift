@@ -165,3 +165,30 @@ struct ConvertedTimeSeriesValue: Identifiable {
     var volume: Int
 }
 
+enum TimeSeriesMode {
+    case recent
+    case historical
+}
+
+enum Interval: String, CaseIterable {
+    case oneMin = "1min"
+    case fiveMin = "5min"
+    case fifteenMin = "15min"
+    case thirtyMin = "30min"
+    case fortyFiveMin = "45min"
+    case oneHour = "1h"
+    
+    case oneDay = "1day"
+    case oneWeek = "1week"
+    case oneMonth = "1month"
+    
+    static var recentIntervals: [Interval] {
+        return [.oneMin, .fiveMin, .fifteenMin, .thirtyMin, .fortyFiveMin, .oneHour]
+    }
+    
+    static var historicalIntervals: [Interval] {
+        return [.oneDay, .oneWeek, .oneMonth]
+    }
+}
+
+
