@@ -12,75 +12,86 @@ struct StockGraphsView: View {
     var stockDetail: StockDetail
     
     @Binding var show: Bool
-    
-    @StateObject private var viewModelForLatest = TimeSeriesViewModel()
-    
-    @State private var selectedIntervalForLatest = 0
-    let intervalListForLatest = ["1min", "5min", "15min", "30min", "45min", "1h"]
 
-    
     var body: some View {
         ScrollView {
-            VStack() {
-                //header
-                HStack(alignment: .center) {
-                    if let currencyName = stockDetail.currencyName?.uppercased() {
-                        Text("Price Trends (\(currencyName))")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    } else {
-                        Text("Price Trends")
-                    }
+            //header
+            HStack(alignment: .center) {
+                if let currencyName = stockDetail.currencyName?.uppercased() {
+                    Text("Price Trends (\(currencyName))")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                } else {
+                    Text("Price Trends")
+                }
+
+                Spacer()
+
+                Button("", systemImage: "xmark", action: { show = false }).buttonStyle(BorderlessButtonStyle())
+            }
+            .padding(.top)
+            .padding(.horizontal)
+            //end header
+            
+            ChartSectionView(stockDetail: stockDetail, intervalList: ["1min", "5min", "15min", "30min", "45min", "1h"], title: "Most Recent")
+            
+            Divider().padding()
+            
+            ChartSectionView(stockDetail: stockDetail, intervalList: ["1h", "4h", "1day", "1week", "1month"], title: "Historical")
+        } //scrollview
+    }
+}
+
+struct ChartSectionView: View {
+    var stockDetail: StockDetail
+    var intervalList: [String]
+    var title: String
+ 
+    @StateObject private var viewModel = TimeSeriesViewModel()
+    
+    @State private var selectedInterval = 0
+    
+    var body: some View {
+        VStack() {
+            //loading
+            if viewModel.isLoading {
+                ProgressView().padding()
+            }
+            //valid data
+            else if let timeSeriesValues = viewModel.timeSeriesValues {
+                HStack(alignment: .center){
+                    Text(title).font(.title2).foregroundStyle(.secondary)
                     
                     Spacer()
                     
-                    Button("", systemImage: "xmark", action: { show = false }).buttonStyle(BorderlessButtonStyle())
-                }
-                .padding(.top)
-                .padding(.horizontal)
-                //end header
-        
-                //latest price chart
-                //loading
-                if viewModelForLatest.isLoading {
-                    ProgressView().padding()
-                }
-                //valid data
-                else if let timeSeriesValues = viewModelForLatest.timeSeriesValues {
-                    HStack(alignment: .center){
-                        Text("Most Recent").font(.title2).foregroundStyle(.secondary)
-                        
-                        Spacer()
-                        
-                        Button("", systemImage: "arrow.clockwise", action: { fetchLatestData() })
-                        
-                        Picker("Interval", selection: $selectedIntervalForLatest) {
-                            ForEach(intervalListForLatest.indices, id: \.self) { index in
-                                Text(intervalListForLatest[index]).tag(index)
-                            }
-                        }
-                        .onChange(of: selectedIntervalForLatest) { fetchLatestData() } //picker
-                    }
-                    .padding(.horizontal)
+                    Button("", systemImage: "arrow.clockwise", action: { fetchData() })
                     
-                    LineChart(data: timeSeriesValues).frame(height: 300)
-                }
-                //no data
-                else {
-                    VStack(alignment: .leading) {
-                        Text("Most Recent").font(.title2).foregroundStyle(.secondary).padding(.vertical)
-                        NoDataPartial()
+                    Picker("Interval", selection: $selectedInterval) {
+                        ForEach(intervalList.indices, id: \.self) { index in
+                            Text(intervalList[index]).tag(index)
+                        }
                     }
+                    .onChange(of: selectedInterval) { fetchData() } //picker
                 }
+                .padding(.horizontal)
                 
-            } //vstack
-            .onAppear {
-                fetchLatestData()
+                LineChart(data: timeSeriesValues).frame(height: 320)
             }
-        } //scrollview
+            //no data
+            else {
+                VStack(alignment: .leading) {
+                    Text(title).font(.title2).foregroundStyle(.secondary).padding(.vertical)
+                    NoDataPartial()
+                }
+            }
+            
+        } //vstack
+        .onAppear {
+            fetchData()
+        }
     }
     
-    private func fetchLatestData() {
-        viewModelForLatest.fetchTimeSeries(symbol: stockDetail.ticker ?? "", interval: intervalListForLatest[selectedIntervalForLatest])
+    private func fetchData() {
+        viewModel.fetchTimeSeries(symbol: stockDetail.ticker ?? "", interval: intervalList[selectedInterval])
     }
 }
 
