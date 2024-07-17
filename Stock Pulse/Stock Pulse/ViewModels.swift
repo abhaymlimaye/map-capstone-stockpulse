@@ -154,6 +154,10 @@ class FavoritesViewModel: ObservableObject {
     static let shared = FavoritesViewModel()
 
     @Published var favorites: [FavoriteStock] = []
+    var favoritesAsString: String {    // Computed property for formatted favorites list for sharing
+        favorites.map { "\($0.name) (\($0.ticker))" }.joined(separator: "\n")
+    }
+    
     private let userDefaultsKey = "favorites"
 
     private init() {

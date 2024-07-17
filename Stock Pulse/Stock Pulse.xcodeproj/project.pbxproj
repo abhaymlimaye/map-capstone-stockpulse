@@ -19,6 +19,7 @@
 		DA602FF42BF8E62000C5FA83 /* Stock_PulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */; };
 		DA602FF82BF8E62300C5FA83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FF72BF8E62300C5FA83 /* Assets.xcassets */; };
 		DA602FFB2BF8E62300C5FA83 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FFA2BF8E62300C5FA83 /* Preview Assets.xcassets */; };
+		DA9860582C4870D20085BDD4 /* FavouritesShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */; };
 		DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_PulseApp.swift; sourceTree = "<group>"; };
 		DA602FF72BF8E62300C5FA83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA602FFA2BF8E62300C5FA83 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesShareSheet.swift; sourceTree = "<group>"; };
 		DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockGraphsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 				B92063442C13B96E0090C6E4 /* FavoritesView.swift */,
 				DA53555E2C155E2B00D5B042 /* NoDataPartial.swift */,
 				DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */,
+				DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */,
 			);
 			path = "Stock Pulse";
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				DA5355572C12B6C400D5B042 /* ViewModels.swift in Sources */,
 				DA53555B2C1393F900D5B042 /* StockDetailView.swift in Sources */,
 				DA602FF42BF8E62000C5FA83 /* Stock_PulseApp.swift in Sources */,
+				DA9860582C4870D20085BDD4 /* FavouritesShareSheet.swift in Sources */,
 				DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */,
 				B92063452C13B96E0090C6E4 /* FavoritesView.swift in Sources */,
 			);

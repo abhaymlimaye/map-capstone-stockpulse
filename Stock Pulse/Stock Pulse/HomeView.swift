@@ -54,7 +54,7 @@ struct HomeView: View {
             .navigationTitle("Top Movers")
             .toolbar {
                 ToolbarItem(placement: .principal) {Text("")} }
-            .navigationBarItems(leading: Text("Last Trading Day's"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
+            .navigationBarItems(leading: Text("From Last Trading Day"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
             .onAppear {
                 viewModel.fetchTopMovers()
             }
