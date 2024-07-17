@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FavoritesView: View {
     @ObservedObject private var viewModel = FavoritesViewModel.shared
+    @State private var isShowingShareSheet = false
     
     var body: some View {
             NavigationStack {
@@ -40,10 +41,19 @@ struct FavoritesView: View {
                             }//section
                         }//list
                     }
-                }
+                } //vstack
                 .navigationTitle("The Beloved")
-                .navigationBarItems(leading: Text("Your very own Superstars"), trailing: viewModel.favorites.count == 0 ? nil : EditButton()) /*trailing: Image(systemName: "star.square.on.square"))*/
-            }
+                .toolbar {
+                    ToolbarItem(placement: .principal) {Text("")} }
+                .navigationBarItems(
+                    leading: Text("Your very own Superstars"),
+                    trailing: viewModel.favorites.count == 0 ? nil : HStack{
+                        EditButton()
+                        Button("", systemImage: "square.and.arrow.up", action: {isShowingShareSheet = true})
+                    }
+                    .sheet(isPresented: $isShowingShareSheet) { FavouritesShareSheet(items: [viewModel.favoritesAsString]) }
+                )//navbaritems
+            }//navigation stack
         }
     
     private func deleteFavorite(at offsets: IndexSet) {
