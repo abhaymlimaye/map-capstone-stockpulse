@@ -17,4 +17,3 @@ struct FavouritesShareSheet: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
-

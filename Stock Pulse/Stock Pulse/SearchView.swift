@@ -44,6 +44,8 @@ struct SearchView: View {
                     }
                 }
                 .navigationTitle("Let's find a Stock")
+                .toolbar {
+                    ToolbarItem(placement: .principal) {Text("")} }
                 .navigationBarItems(leading: Text("What do you want to look for?"), trailing: Image(systemName: "waveform.badge.magnifyingglass"))
                 .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Type a symbol or a name...")
                 .onSubmit(of: .search) {
