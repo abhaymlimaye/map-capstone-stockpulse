@@ -20,8 +20,38 @@
 		DA602FF82BF8E62300C5FA83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FF72BF8E62300C5FA83 /* Assets.xcassets */; };
 		DA602FFB2BF8E62300C5FA83 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA602FFA2BF8E62300C5FA83 /* Preview Assets.xcassets */; };
 		DA9860582C4870D20085BDD4 /* FavouritesShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */; };
+		DA9860692C48A59F0085BDD4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9860682C48A59F0085BDD4 /* WidgetKit.framework */; };
+		DA98606B2C48A59F0085BDD4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA98606A2C48A59F0085BDD4 /* SwiftUI.framework */; };
+		DA98606E2C48A59F0085BDD4 /* Track_FavoritesBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98606D2C48A59F0085BDD4 /* Track_FavoritesBundle.swift */; };
+		DA9860722C48A59F0085BDD4 /* Track_Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9860712C48A59F0085BDD4 /* Track_Favorites.swift */; };
+		DA9860762C48A5A30085BDD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA9860752C48A5A30085BDD4 /* Assets.xcassets */; };
+		DA98607A2C48A5A30085BDD4 /* Track FavoritesExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA9860782C48A5A30085BDD4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA602FE82BF8E62000C5FA83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA9860652C48A59F0085BDD4;
+			remoteInfo = "Track FavoritesExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA98607E2C48A5A30085BDD4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DA98607A2C48A5A30085BDD4 /* Track FavoritesExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B92063402C13B8D00090C6E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +68,15 @@
 		DA602FF72BF8E62300C5FA83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA602FFA2BF8E62300C5FA83 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesShareSheet.swift; sourceTree = "<group>"; };
+		DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Track FavoritesExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA9860682C48A59F0085BDD4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DA98606A2C48A59F0085BDD4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DA98606D2C48A59F0085BDD4 /* Track_FavoritesBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track_FavoritesBundle.swift; sourceTree = "<group>"; };
+		DA9860712C48A59F0085BDD4 /* Track_Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track_Favorites.swift; sourceTree = "<group>"; };
+		DA9860752C48A5A30085BDD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA9860772C48A5A30085BDD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA98607F2C49CA8F0085BDD4 /* Stock Pulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Stock Pulse.entitlements"; sourceTree = "<group>"; };
+		DA9860802C49CDA60085BDD4 /* Track FavoritesExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Track FavoritesExtension.entitlements"; sourceTree = "<group>"; };
 		DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockGraphsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,13 +88,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA9860632C48A59F0085BDD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA98606B2C48A59F0085BDD4 /* SwiftUI.framework in Frameworks */,
+				DA9860692C48A59F0085BDD4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DA602FE72BF8E62000C5FA83 = {
 			isa = PBXGroup;
 			children = (
+				DA9860802C49CDA60085BDD4 /* Track FavoritesExtension.entitlements */,
 				DA602FF22BF8E62000C5FA83 /* Stock Pulse */,
+				DA98606C2C48A59F0085BDD4 /* Track Favorites */,
+				DA9860672C48A59F0085BDD4 /* Frameworks */,
 				DA602FF12BF8E62000C5FA83 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				DA602FF02BF8E62000C5FA83 /* Stock Pulse.app */,
+				DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,6 +123,7 @@
 		DA602FF22BF8E62000C5FA83 /* Stock Pulse */ = {
 			isa = PBXGroup;
 			children = (
+				DA98607F2C49CA8F0085BDD4 /* Stock Pulse.entitlements */,
 				DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */,
 				DA5355522C12AB1200D5B042 /* HomeView.swift */,
 				DA602FF72BF8E62300C5FA83 /* Assets.xcassets */,
@@ -97,6 +150,26 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DA9860672C48A59F0085BDD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA9860682C48A59F0085BDD4 /* WidgetKit.framework */,
+				DA98606A2C48A59F0085BDD4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA98606C2C48A59F0085BDD4 /* Track Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				DA98606D2C48A59F0085BDD4 /* Track_FavoritesBundle.swift */,
+				DA9860712C48A59F0085BDD4 /* Track_Favorites.swift */,
+				DA9860752C48A5A30085BDD4 /* Assets.xcassets */,
+				DA9860772C48A5A30085BDD4 /* Info.plist */,
+			);
+			path = "Track Favorites";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,15 +180,34 @@
 				DA602FEC2BF8E62000C5FA83 /* Sources */,
 				DA602FED2BF8E62000C5FA83 /* Frameworks */,
 				DA602FEE2BF8E62000C5FA83 /* Resources */,
+				DA98607E2C48A5A30085BDD4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DA9860792C48A5A30085BDD4 /* PBXTargetDependency */,
 			);
 			name = "Stock Pulse";
 			productName = "Stock Pulse";
 			productReference = DA602FF02BF8E62000C5FA83 /* Stock Pulse.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DA9860652C48A59F0085BDD4 /* Track FavoritesExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA98607B2C48A5A30085BDD4 /* Build configuration list for PBXNativeTarget "Track FavoritesExtension" */;
+			buildPhases = (
+				DA9860622C48A59F0085BDD4 /* Sources */,
+				DA9860632C48A59F0085BDD4 /* Frameworks */,
+				DA9860642C48A59F0085BDD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Track FavoritesExtension";
+			productName = "Track FavoritesExtension";
+			productReference = DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -128,6 +220,9 @@
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					DA602FEF2BF8E62000C5FA83 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					DA9860652C48A59F0085BDD4 = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -146,6 +241,7 @@
 			projectRoot = "";
 			targets = (
 				DA602FEF2BF8E62000C5FA83 /* Stock Pulse */,
+				DA9860652C48A59F0085BDD4 /* Track FavoritesExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -157,6 +253,14 @@
 			files = (
 				DA602FFB2BF8E62300C5FA83 /* Preview Assets.xcassets in Resources */,
 				DA602FF82BF8E62300C5FA83 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA9860642C48A59F0085BDD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA9860762C48A5A30085BDD4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +286,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA9860622C48A59F0085BDD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA98606E2C48A59F0085BDD4 /* Track_FavoritesBundle.swift in Sources */,
+				DA9860722C48A59F0085BDD4 /* Track_Favorites.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA9860792C48A5A30085BDD4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA9860652C48A59F0085BDD4 /* Track FavoritesExtension */;
+			targetProxy = DA9860782C48A5A30085BDD4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DA6030012BF8E62300C5FA83 /* Debug */ = {
@@ -307,11 +428,14 @@
 		DA6030042BF8E62300C5FA83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Stock Pulse/Stock Pulse.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Pulse/Preview Content\"";
+				DEVELOPMENT_TEAM = HP6H2JWWCX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -335,11 +459,14 @@
 		DA6030052BF8E62300C5FA83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Stock Pulse/Stock Pulse.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Pulse/Preview Content\"";
+				DEVELOPMENT_TEAM = HP6H2JWWCX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -354,6 +481,62 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.s2g3.Stock-Pulse";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DA98607C2C48A5A30085BDD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Track FavoritesExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HP6H2JWWCX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Track Favorites/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Track Favorites";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.s2g3.Stock-Pulse.Track-Favorites";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA98607D2C48A5A30085BDD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Track FavoritesExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HP6H2JWWCX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Track Favorites/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Track Favorites";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.s2g3.Stock-Pulse.Track-Favorites";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -377,6 +560,15 @@
 			buildConfigurations = (
 				DA6030042BF8E62300C5FA83 /* Debug */,
 				DA6030052BF8E62300C5FA83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA98607B2C48A5A30085BDD4 /* Build configuration list for PBXNativeTarget "Track FavoritesExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA98607C2C48A5A30085BDD4 /* Debug */,
+				DA98607D2C48A5A30085BDD4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
