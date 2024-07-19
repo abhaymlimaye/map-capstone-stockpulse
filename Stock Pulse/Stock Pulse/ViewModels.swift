@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import WidgetKit
 
 class StocksViewModel: ObservableObject {
     @Published var gainers: [Stock]? = nil
@@ -159,6 +160,7 @@ class FavoritesViewModel: ObservableObject {
     }
     
     private let userDefaultsKey = "favorites"
+    private let suiteName = "com.example.s2g3.Stock-Pulse"
 
     private init() {
         loadFavorites()
@@ -186,16 +188,20 @@ class FavoritesViewModel: ObservableObject {
 
     private func saveFavorites() {
         if let encoded = try? JSONEncoder().encode(favorites) {
-            UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
+            UserDefaults.shared.set(encoded, forKey: userDefaultsKey)
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
     private func loadFavorites() {
-        if let savedFavorites = UserDefaults.standard.data(forKey: userDefaultsKey),
+        if let savedFavorites = UserDefaults.shared.data(forKey: userDefaultsKey),
            let decodedFavorites = try? JSONDecoder().decode([FavoriteStock].self, from: savedFavorites) {
             favorites = decodedFavorites
         }
     }
+}
+extension UserDefaults {
+    static let shared = UserDefaults(suiteName: "group.com.example.s2g3.Stock-Pulse")!
 }
 
 class TimeSeriesViewModel: ObservableObject {
