@@ -140,6 +140,7 @@ struct FavoriteStock: Codable, Identifiable {
     var id: String { ticker }
     var name: String
     var ticker: String
+    var price: Double?
 }
 
 

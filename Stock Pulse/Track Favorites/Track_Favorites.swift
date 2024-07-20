@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     private var widgetViewModel = WidgetViewModel()
-    
+
     func placeholder(in context: Context) -> WidgetEntry {
         WidgetEntry(date: Date(), favorites: [])
     }
@@ -21,7 +21,7 @@ struct Provider: TimelineProvider {
             completion(entry)
         }
     }
-    
+
     func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetEntry>) -> Void) {
         widgetViewModel.loadFavoritesWithPrices { favorites in
             let currentDate = Date()
@@ -33,45 +33,42 @@ struct Provider: TimelineProvider {
     }
 }
 
-
 class WidgetViewModel {
-    var favoriteStocksWithPrices: [FavoriteStockWithPrice] = []
     private let userDefaultsKey = "favorites"
-    
-    func loadFavoritesWithPrices(completion: @escaping ([FavoriteStockWithPrice]) -> Void) {
+    private let apiKey = "7ea73364a0ff42b097cf4fc044d4bbfb"
+
+    func loadFavoritesWithPrices(completion: @escaping ([FavoriteStock]) -> Void) {
         guard let savedFavorites = UserDefaults.shared.data(forKey: userDefaultsKey),
-              let decodedFavorites = try? JSONDecoder().decode([FavoriteStock].self, from: savedFavorites) else {
+              var favorites = try? JSONDecoder().decode([FavoriteStock].self, from: savedFavorites) else {
             print("From Widget - No Favorites Found")
             completion([])
             return
         }
-        
-        var fetchedFavorites: [FavoriteStockWithPrice] = []
+
         let dispatchGroup = DispatchGroup()
-        
-        for favorite in decodedFavorites.prefix(3) {
+        for index in 0..<3 {
             dispatchGroup.enter()
-            fetchStockPrice(symbol: favorite.ticker) { price in
+            fetchStockPrice(symbol: favorites[index].ticker) { price in
                 if let price = price {
-                    let favoriteWithPrice = FavoriteStockWithPrice(
-                        name: favorite.name,
-                        ticker: favorite.ticker,
-                        price: price
-                    )
-                    fetchedFavorites.append(favoriteWithPrice)
+                    favorites[index].price = price
+                    
+                    print("----\(favorites[index].ticker): $\(price)")
+                    
+                    if let encoded = try? JSONEncoder().encode(favorites) {
+                        UserDefaults.shared.set(encoded, forKey: self.userDefaultsKey)
+                    }
                 }
                 dispatchGroup.leave()
             }
         }
-        
+
         dispatchGroup.notify(queue: .main) {
-            print("From Widget - Favorites with Price:- \n \(fetchedFavorites)")
-            completion(fetchedFavorites)
+            completion(favorites)
         }
     }
 
     private func fetchStockPrice(symbol: String, completion: @escaping (Double?) -> Void) {
-        guard let url = URL(string: "https://api.twelvedata.com/price?symbol=\(symbol)&apikey=7ea73364a0ff42b097cf4fc044d4bbfb") else {
+        guard let url = URL(string: "https://api.twelvedata.com/price?symbol=\(symbol)&apikey=\(apiKey)") else {
             completion(nil)
             return
         }
@@ -88,28 +85,25 @@ class WidgetViewModel {
         task.resume()
     }
 }
+
 extension UserDefaults {
     static let shared = UserDefaults(suiteName: "group.com.example.s2g3.Stock-Pulse")!
 }
 
-
 struct WidgetEntry: TimelineEntry {
     let date: Date
-    let favorites: [FavoriteStockWithPrice]
+    let favorites: [FavoriteStock]
 }
+
 struct FavoriteStock: Codable, Identifiable {
     var id: String { ticker }
     var name: String
     var ticker: String
+    var price: Double?
 }
+
 struct RealtimePrice: Codable {
     let price: String
-}
-struct FavoriteStockWithPrice: Identifiable {
-    var id: String { ticker }
-    var name: String
-    var ticker: String
-    var price: Double
 }
 
 struct WidgetEntryView: View {
@@ -121,30 +115,39 @@ struct WidgetEntryView: View {
                 Text("Add some Favorite Stocks to Monitor.")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-            }
-            else {
-                ForEach(entry.favorites.enumerated().map { $0 }, id: \.element.id) { index, stock in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(stock.ticker).font(.subheadline)
-                            Spacer()
-                            Text("$" + String(format: "%.2f", stock.price))
-                                .font(.headline)
-                                .foregroundColor(.accentColor)
-                        }
-                        Text(stock.name)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        if index != entry.favorites.count - 1 {
-                            Divider()
-                        }
+            } else {
+                ForEach(entry.favorites.prefix(3).enumerated().map { $0 }, id: \.element.id) { index, stock in
+                    StockRowView(stock: stock)
+                    if index < 2 {
+                        Divider()
                     }
-                }//foreach
-            }//else
+                }
+            }
         }
     }
 }
 
+struct StockRowView: View {
+    var stock: FavoriteStock
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(stock.ticker).font(.subheadline)
+                Spacer()
+                if let price = stock.price {
+                    Text("$" + String(format: "%.2f", price)).font(.headline).foregroundColor(.accentColor)
+                }
+                else {
+                    Image(systemName: "clock")
+                }
+            }
+            Text(stock.name)
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+    }
+}
 
 struct Track_Favorites: Widget {
     let kind: String = "Track_Favorites"
@@ -158,6 +161,3 @@ struct Track_Favorites: Widget {
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
-
-
-
