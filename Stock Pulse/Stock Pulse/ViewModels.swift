@@ -239,6 +239,7 @@ class TimeSeriesViewModel: ObservableObject {
             return
         }
         
+        print("\n\nTime Series URL: ", url)
         isLoading = true
         timeSeriesValues = nil
 
@@ -255,6 +256,7 @@ class TimeSeriesViewModel: ObservableObject {
                     break
                 }
             }, receiveValue: { [weak self] response in
+                print("\nTime Series Response:-\n", response.values, "\n\n")
                 self?.timeSeriesValues = self?.getConvertedData(from: response.values)
                 self?.isLoading = false
             })
