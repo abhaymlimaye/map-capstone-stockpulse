@@ -27,6 +27,7 @@
 		DA9860762C48A5A30085BDD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA9860752C48A5A30085BDD4 /* Assets.xcassets */; };
 		DA98607A2C48A5A30085BDD4 /* Track FavoritesExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAC98DA62C4DC3740094072A /* DarkModeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */; };
+		DAC98DA92C4DE8AC0094072A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DA82C4DE8AC0094072A /* SplashScreenView.swift */; };
 		DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		DA98607F2C49CA8F0085BDD4 /* Stock Pulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Stock Pulse.entitlements"; sourceTree = "<group>"; };
 		DA9860802C49CDA60085BDD4 /* Track FavoritesExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Track FavoritesExtension.entitlements"; sourceTree = "<group>"; };
 		DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeMenu.swift; sourceTree = "<group>"; };
+		DAC98DA82C4DE8AC0094072A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockGraphsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 				DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */,
 				DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */,
 				DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */,
+				DAC98DA82C4DE8AC0094072A /* SplashScreenView.swift */,
 			);
 			path = "Stock Pulse";
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				DA53555F2C155E2B00D5B042 /* NoDataPartial.swift in Sources */,
 				B92063432C13B9510090C6E4 /* SearchView.swift in Sources */,
 				DA5355572C12B6C400D5B042 /* ViewModels.swift in Sources */,
+				DAC98DA92C4DE8AC0094072A /* SplashScreenView.swift in Sources */,
 				DA53555B2C1393F900D5B042 /* StockDetailView.swift in Sources */,
 				DA602FF42BF8E62000C5FA83 /* Stock_PulseApp.swift in Sources */,
 				DA9860582C4870D20085BDD4 /* FavouritesShareSheet.swift in Sources */,
