@@ -54,7 +54,10 @@ struct HomeView: View {
             .navigationTitle("Top Movers")
             .toolbar {
                 ToolbarItem(placement: .principal) {Text("")} }
-            .navigationBarItems(leading: Text("From Last Trading Day"), trailing: Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall"))
+            .navigationBarItems(leading: HStack {
+                    Image(systemName: selectedTab == 0 ? "chart.line.uptrend.xyaxis" : selectedTab == 1 ? "trophy" : "figure.fall")
+                    Text("From Last Trading Day")},
+                trailing: DarkModeMenu())
             .onAppear {
                 viewModel.fetchTopMovers()
             }
