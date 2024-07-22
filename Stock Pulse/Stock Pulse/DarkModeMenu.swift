@@ -21,7 +21,7 @@ struct DarkModeMenu: View {
                 }
             }
             .pickerStyle(.inline)
-            .onChange(of: selectedTheme) { newValue in
+            .onChange(of: selectedTheme) { oldValue, newValue in
                 if let newTheme = Theme(rawValue: newValue) {
                     themeManager.setTheme(newTheme)
                 }

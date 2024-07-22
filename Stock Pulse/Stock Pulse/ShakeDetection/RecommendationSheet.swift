@@ -14,10 +14,12 @@ struct RecommendationSheet: View {
     var body: some View {
         NavigationView {
             VStack {
+                //Loading
                 if viewModel.isLoading {
                     Spacer()
                     ProgressView()
                 }
+                //Data
                 else if let bestStock = viewModel.bestStock, let worstStock = viewModel.worstStock {
                     HStack {
                         Image(systemName: "flame").foregroundColor(.green)
@@ -51,6 +53,7 @@ struct RecommendationSheet: View {
                         StockRow(stock: worstStock, selectedTab: 2)
                     }.padding(.top)
                 }
+                //No Data
                 else {
                     NoDataPartial()
                 }
