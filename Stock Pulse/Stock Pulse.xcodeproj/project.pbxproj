@@ -26,6 +26,7 @@
 		DA9860722C48A59F0085BDD4 /* Track_Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9860712C48A59F0085BDD4 /* Track_Favorites.swift */; };
 		DA9860762C48A5A30085BDD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA9860752C48A5A30085BDD4 /* Assets.xcassets */; };
 		DA98607A2C48A5A30085BDD4 /* Track FavoritesExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DAC98DA62C4DC3740094072A /* DarkModeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */; };
 		DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		DA9860772C48A5A30085BDD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA98607F2C49CA8F0085BDD4 /* Stock Pulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Stock Pulse.entitlements"; sourceTree = "<group>"; };
 		DA9860802C49CDA60085BDD4 /* Track FavoritesExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Track FavoritesExtension.entitlements"; sourceTree = "<group>"; };
+		DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeMenu.swift; sourceTree = "<group>"; };
 		DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockGraphsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 				DA53555E2C155E2B00D5B042 /* NoDataPartial.swift */,
 				DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */,
 				DA9860572C4870D20085BDD4 /* FavouritesShareSheet.swift */,
+				DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */,
 			);
 			path = "Stock Pulse";
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				DA9860582C4870D20085BDD4 /* FavouritesShareSheet.swift in Sources */,
 				DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */,
 				B92063452C13B96E0090C6E4 /* FavoritesView.swift in Sources */,
+				DAC98DA62C4DC3740094072A /* DarkModeMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
