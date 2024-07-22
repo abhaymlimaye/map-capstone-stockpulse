@@ -46,10 +46,14 @@ struct FavoritesView: View {
                 .toolbar {
                     ToolbarItem(placement: .principal) {Text("")} }
                 .navigationBarItems(
-                    leading: Text("Your very own Superstars"),
+                    leading: HStack {
+                        Image(systemName: "wand.and.stars")
+                        Text("Your Superstars")
+                    },
                     trailing: viewModel.favorites.count == 0 ? nil : HStack{
                         EditButton()
-                        Button("", systemImage: "square.and.arrow.up", action: {isShowingShareSheet = true})
+                        Button("", systemImage: "paperplane", action: {isShowingShareSheet = true})
+                        DarkModeMenu()
                     }
                     .sheet(isPresented: $isShowingShareSheet) { FavouritesShareSheet(items: [viewModel.favoritesAsString]) }
                 )//navbaritems

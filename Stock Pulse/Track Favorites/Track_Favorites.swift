@@ -115,15 +115,14 @@ struct WidgetEntryView: View {
                 Text("Add some Favorite Stocks to Monitor.")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-            } else {
+            } 
+            else {
                 ForEach(entry.favorites.prefix(3).enumerated().map { $0 }, id: \.element.id) { index, stock in
                     StockRowView(stock: stock)
-                    if index < 2 {
-                        Divider()
-                    }
+                    if index < 2 { Divider() }
                 }
             }
-        }
+        }//vstack
     }
 }
 
