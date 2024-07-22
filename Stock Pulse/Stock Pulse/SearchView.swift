@@ -46,7 +46,10 @@ struct SearchView: View {
                 .navigationTitle("Let's find a Stock")
                 .toolbar {
                     ToolbarItem(placement: .principal) {Text("")} }
-                .navigationBarItems(leading: Text("What do you want to look for?"), trailing: Image(systemName: "waveform.badge.magnifyingglass"))
+                .navigationBarItems(leading: HStack{
+                        Image(systemName: "waveform.badge.magnifyingglass")
+                        Text("What do you want to look for?")
+                    }, trailing: DarkModeMenu() )
                 .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Type a symbol or a name...")
                 .onSubmit(of: .search) {
                     viewModel.search()
