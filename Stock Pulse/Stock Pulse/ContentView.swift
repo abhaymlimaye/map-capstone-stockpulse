@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showMainView = false
+    @State private var showRecommendationSheet = false
     
     var body: some View {
         if showMainView {
@@ -28,6 +29,7 @@ struct ContentView: View {
                         Label("Favorites", systemImage: "star")
                     }
             }
+            .onShake(showRecommendationSheet: $showRecommendationSheet)
         }
         else {
             SplashScreenView(showMainView: $showMainView)
