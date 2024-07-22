@@ -14,32 +14,21 @@ struct StockGraphsView: View {
     @Binding var show: Bool
 
     var body: some View {
-        VStack {
-            //header
-            HStack(alignment: .center) {
-                if let currencyName = stockDetail.currencyName?.uppercased() {
-                    Text("Price Trends (\(currencyName))")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                } else {
-                    Text("Price Trends")
-                }
-
-                Spacer()
-
-                Button("", systemImage: "xmark", action: { show = false }).buttonStyle(BorderlessButtonStyle())
-            }
-            .padding(.top)
-            .padding(.horizontal)
-            //end header
-            
-            ScrollView {
-                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: Interval.recentIntervals, title: "Most Recent", timeSeriesMode: .recent)
-                
-                Divider().padding()
-                
-                ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: Interval.historicalIntervals, title: "Historical", timeSeriesMode: .historical)
-            } //scrollview
-        }//vstack
+        NavigationView {
+            VStack {
+                ScrollView {
+                    ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: Interval.recentIntervals, title: "Most Recent", timeSeriesMode: .recent)
+                    
+                    Divider().padding()
+                    
+                    ChartSectionView(symbol: stockDetail.ticker ?? "", intervalList: Interval.historicalIntervals, title: "Historical", timeSeriesMode: .historical)
+                } //scrollview
+            }//vstack
+            .navigationTitle("Price Trends \(stockDetail.currencyName?.uppercased() ?? "")")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(leading: Image(systemName: "chart.xyaxis.line"),
+                                trailing: Button("", systemImage: "xmark", action: { show = false }) )
+        }
     }//body
 }
 

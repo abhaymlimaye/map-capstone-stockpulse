@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var viewModel = StocksViewModel()
+    @StateObject private var viewModel = TopStocksViewModel()
     @State private var selectedTab = 0
     
-    private let tabs: [Tab<StocksViewModel, [Stock]?>] = [
-        Tab(tabName: "Most Traded", sectionTitle: "Top 20 By Volume", dataPath: \StocksViewModel.activelyTraded),
-        Tab(tabName: "Gainers", sectionTitle: "Top 20 By Growth", dataPath: \StocksViewModel.gainers),
-        Tab(tabName: "Losers", sectionTitle: "Top 20 By Downfall", dataPath: \StocksViewModel.losers)
+    private let tabs: [Tab<TopStocksViewModel, [Stock]?>] = [
+        Tab(tabName: "Most Traded", sectionTitle: "Top 20 By Volume", dataPath: \TopStocksViewModel.activelyTraded),
+        Tab(tabName: "Gainers", sectionTitle: "Top 20 By Growth", dataPath: \TopStocksViewModel.gainers),
+        Tab(tabName: "Losers", sectionTitle: "Top 20 By Downfall", dataPath: \TopStocksViewModel.losers)
     ]
 
     var body: some View {

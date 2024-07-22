@@ -70,6 +70,5 @@ class ThemeManager: ObservableObject {
 
 
 #Preview {
-    DarkModeMenu()
-        .environmentObject(ThemeManager())
+    DarkModeMenu().environmentObject(ThemeManager())
 }

@@ -9,13 +9,17 @@ import Foundation
 import Combine
 import WidgetKit
 
-class StocksViewModel: ObservableObject {
+class TopStocksViewModel: ObservableObject {
     @Published var gainers: [Stock]? = nil
     @Published var losers: [Stock]? = nil
     @Published var activelyTraded: [Stock]? = nil
+    
     @Published var isLoading: Bool = false
     
-    func fetchTopMovers() {
+    @Published var bestStock: Stock? = nil
+    @Published var worstStock: Stock? = nil
+    
+    func fetchTopMovers(completion: (() -> Void)? = nil) {
         guard let url = APIEndpoints.topMoversUrl() else { return }
         
         isLoading = true
@@ -31,19 +35,48 @@ class StocksViewModel: ObservableObject {
                         self.losers = topMoversResponse.topLosers
                         self.activelyTraded = topMoversResponse.mostActivelyTraded
                         self.isLoading = false
+                        completion?()
                     }
                 } catch {
                     print("Error decoding top movers: \(error)")
                     DispatchQueue.main.async {
                         self.isLoading = false
+                        completion?()
                     }
                 }
             } else {
                 DispatchQueue.main.async {
                     self.isLoading = false
+                    completion?()
                 }
             }
         }.resume()
+    }
+    
+    func getRecommendation() {
+        fetchTopMovers { [weak self] in
+            guard let self = self else { return }
+            guard let gainers = self.gainers, let losers = self.losers, let activelyTraded = self.activelyTraded else {
+                print("\n\nFailed to Get Recommendations - No data received from fetchTopMovers")
+                return
+            }
+            
+            // Combine gainers and actively traded lists to find the best stock with highest volume
+            let combinedGainers = gainers + activelyTraded
+            self.bestStock = combinedGainers.max {
+                guard let change1 = Double($0.changePercentage ?? ""), let volume1 = Double($0.volume ?? ""),
+                      let change2 = Double($1.changePercentage ?? ""), let volume2 = Double($1.volume ?? "") else { return false }
+                return (change1 < change2) || (change1 == change2 && volume1 < volume2)
+            }
+            
+            // Combine losers and actively traded lists to find the worst stock with lowest volume
+            let combinedLosers = losers + activelyTraded
+            self.worstStock = combinedLosers.min {
+                guard let change1 = Double($0.changePercentage ?? ""), let volume1 = Double($0.volume ?? ""),
+                      let change2 = Double($1.changePercentage ?? ""), let volume2 = Double($1.volume ?? "") else { return false }
+                return (change1 > change2) || (change1 == change2 && volume1 > volume2)
+            }
+        }
     }
 }
 
