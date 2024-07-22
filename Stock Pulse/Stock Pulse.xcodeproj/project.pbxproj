@@ -28,6 +28,8 @@
 		DA98607A2C48A5A30085BDD4 /* Track FavoritesExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DA9860662C48A59F0085BDD4 /* Track FavoritesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAC98DA62C4DC3740094072A /* DarkModeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */; };
 		DAC98DA92C4DE8AC0094072A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DA82C4DE8AC0094072A /* SplashScreenView.swift */; };
+		DAC98DAC2C4DF5FF0094072A /* ShakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DAB2C4DF5FF0094072A /* ShakeDetector.swift */; };
+		DAC98DAE2C4DF6280094072A /* RecommendationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC98DAD2C4DF6280094072A /* RecommendationSheet.swift */; };
 		DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		DA9860802C49CDA60085BDD4 /* Track FavoritesExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Track FavoritesExtension.entitlements"; sourceTree = "<group>"; };
 		DAC98DA52C4DC3740094072A /* DarkModeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeMenu.swift; sourceTree = "<group>"; };
 		DAC98DA82C4DE8AC0094072A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		DAC98DAB2C4DF5FF0094072A /* ShakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDetector.swift; sourceTree = "<group>"; };
+		DAC98DAD2C4DF6280094072A /* RecommendationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationSheet.swift; sourceTree = "<group>"; };
 		DAECC9D42C1B7EAF00DDF36D /* StockGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockGraphsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +131,7 @@
 		DA602FF22BF8E62000C5FA83 /* Stock Pulse */ = {
 			isa = PBXGroup;
 			children = (
+				DAC98DAA2C4DF5E00094072A /* ShakeDetection */,
 				DA98607F2C49CA8F0085BDD4 /* Stock Pulse.entitlements */,
 				DA602FF32BF8E62000C5FA83 /* Stock_PulseApp.swift */,
 				DA5355522C12AB1200D5B042 /* HomeView.swift */,
@@ -174,6 +179,15 @@
 				DA9860772C48A5A30085BDD4 /* Info.plist */,
 			);
 			path = "Track Favorites";
+			sourceTree = "<group>";
+		};
+		DAC98DAA2C4DF5E00094072A /* ShakeDetection */ = {
+			isa = PBXGroup;
+			children = (
+				DAC98DAB2C4DF5FF0094072A /* ShakeDetector.swift */,
+				DAC98DAD2C4DF6280094072A /* RecommendationSheet.swift */,
+			);
+			path = ShakeDetection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +293,7 @@
 			files = (
 				DA5355592C13802100D5B042 /* APIEndpoints.swift in Sources */,
 				DA5355552C12B58A00D5B042 /* Models.swift in Sources */,
+				DAC98DAE2C4DF6280094072A /* RecommendationSheet.swift in Sources */,
 				B92063412C13B8D00090C6E4 /* ContentView.swift in Sources */,
 				DA5355532C12AB1200D5B042 /* HomeView.swift in Sources */,
 				DA53555F2C155E2B00D5B042 /* NoDataPartial.swift in Sources */,
@@ -290,6 +305,7 @@
 				DA9860582C4870D20085BDD4 /* FavouritesShareSheet.swift in Sources */,
 				DAECC9D52C1B7EAF00DDF36D /* StockGraphsView.swift in Sources */,
 				B92063452C13B96E0090C6E4 /* FavoritesView.swift in Sources */,
+				DAC98DAC2C4DF5FF0094072A /* ShakeDetector.swift in Sources */,
 				DAC98DA62C4DC3740094072A /* DarkModeMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
