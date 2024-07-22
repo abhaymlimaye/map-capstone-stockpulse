@@ -9,10 +9,13 @@ import SwiftUI
 
 @main
 struct Stock_PulseApp: App {
+    @StateObject private var themeManager = ThemeManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(themeManager)
+                .preferredColorScheme(themeManager.theme.colorScheme)
         }
     }
 }
