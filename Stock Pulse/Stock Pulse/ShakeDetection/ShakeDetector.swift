@@ -25,7 +25,7 @@ struct ShakeDetector: ViewModifier {
                 shakeNotificationCancellable?.cancel()
             }
             .sheet(isPresented: $showRecommendationSheet) {
-                RecommendationSheet()
+                RecommendationSheet(show: $showRecommendationSheet).presentationDetents([.medium, .large])
             }
     }
 }
