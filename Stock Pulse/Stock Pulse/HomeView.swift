@@ -48,7 +48,7 @@ struct HomeView: View {
                     }//list
                 }
                 else {
-                    NoDataPartial()
+                    NoDataPartial(retryAction: { viewModel.fetchTopMovers() })
                 }
             }//vstack
             .navigationTitle("Top Movers")
@@ -59,6 +59,9 @@ struct HomeView: View {
                     Text("From Last Trading Day")},
                 trailing: DarkModeMenu())
             .onAppear {
+                viewModel.fetchTopMovers()
+            }
+            .refreshable {
                 viewModel.fetchTopMovers()
             }
         }//navigationstack

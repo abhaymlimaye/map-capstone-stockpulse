@@ -81,7 +81,7 @@ struct ChartSectionView: View {
             else {
                 VStack(alignment: .leading) {
                     Text(title).font(.title2).foregroundStyle(.secondary).padding(.vertical)
-                    NoDataPartial()
+                    NoDataPartial(retryAction: fetchData)
                 }
             }
             

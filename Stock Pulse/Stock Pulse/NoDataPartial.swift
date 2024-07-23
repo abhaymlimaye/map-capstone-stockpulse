@@ -9,20 +9,22 @@ import SwiftUI
 
 struct NoDataPartial: View {
     var show: Bool?
-    
+    var retryAction: (() -> Void)?
+
     var body: some View {
         if let show = show {
-            if(show) {
-                Layout()
+            if show {
+                Layout(retryAction: retryAction)
             }
-        }
-        else {
-            Layout()
+        } else {
+            Layout(retryAction: retryAction)
         }
     }
 }
 
 private struct Layout: View {
+    var retryAction: (() -> Void)?
+
     var body: some View {
         VStack(alignment: .center) {
             Spacer()
@@ -34,11 +36,17 @@ private struct Layout: View {
             Text("Oops! Data is not available at the moment.")
                 .padding()
                 .foregroundColor(.secondary)
+            if let retryAction = retryAction {
+                Button("Retry", systemImage: "arrow.clockwise", action: retryAction)
+                    .buttonStyle(.bordered)
+                    .padding()
+            }
             Spacer()
         }
     }
 }
 
+
 #Preview {
-    NoDataPartial()
+    NoDataPartial(show: true, retryAction: {})
 }

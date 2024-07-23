@@ -127,7 +127,7 @@ struct StockDetailView: View {
                     } //scrollview
                 } //end details data
                 else { //failure case
-                    NoDataPartial(show: !viewModel.isLoading)
+                    NoDataPartial(show: !viewModel.isLoading, retryAction: fetchData)
                 }
             } //vstack
         
@@ -141,10 +141,17 @@ struct StockDetailView: View {
                 }
         }).foregroundColor(favouritesViewModel.isFavorite(symbol: ticker) ? .orange : .accentColor)
         )
+        .refreshable {
+            fetchData()
+        }
         .onAppear {
-            viewModel.fetchStockDetail(ticker: ticker)
+            fetchData()
         }
     }//end body
+    
+    private func fetchData() {
+        viewModel.fetchStockDetail(ticker: ticker)
+    }
 }
 
 struct MetricTile: View{

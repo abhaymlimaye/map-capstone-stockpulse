@@ -55,7 +55,7 @@ struct RecommendationSheet: View {
                 }
                 //No Data
                 else {
-                    NoDataPartial()
+                    NoDataPartial(retryAction: viewModel.getRecommendation)
                 }
                 
                 Spacer()

@@ -31,7 +31,7 @@ struct SearchView: View {
                         }//list
                     }
                     else if showRecordCount { //search failed
-                        NoDataPartial()
+                        NoDataPartial(retryAction: viewModel.search)
                     }
                     else { //first time visit
                         Image("SearchStock-Image")
